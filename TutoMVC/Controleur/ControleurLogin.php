@@ -7,15 +7,28 @@
  */
 
 
+require_once 'Modele/Login.php';
 
+Class ControleurLogin
+{
 
-Class ControleurLogin {
-
-    public function connection (){
+    public function connection()
+    {
         $vue = new Vue ("Login");
         $vue->generer([]);
     }
+
+    public function beloged($login, $password){
+        $Objlogin = new Login();
+        $Objlogin->beloged($login, $password);
+        $vue = new Vue ("Login");
+        $vue->generer([]);
+
+    }
 }
+
+
+
 
 
 

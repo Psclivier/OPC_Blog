@@ -30,42 +30,71 @@ class Routeur {
                     else
                         throw new Exception("Identifiant de billet non valide");
                 }
-
+                // Poster un commentaire.
                 else if ($_GET['action'] == 'commenter') {
                     $auteur = $this->getParametre($_POST, 'auteur');
                     $contenu = $this->getParametre($_POST, 'contenu');
                     $idBillet = $this->getParametre($_POST, 'id');
                     $this->ctrlBillet->commenter($auteur, $contenu, $idBillet);
                 }
-
+                // Poster un article.
                 else if ($_GET['action'] == 'poster'){
                     // Poster un Billet.
                     $contenu = $this->getParametre($_POST, 'contenu');
                     $titre = $this->getParametre($_POST, 'titre');
                     $this->ctrlBillet->poster( $contenu, $titre);
                 }
-
-                else if ($_GET['action'] == 'supprimer'){
-                    // Supprimer commentaire.
-                    $idCommentaire = $this->getParametre($_POST, 'id');
-                    $this->ctrlBillet->supprimer($idCommentaire);
-                }
-
-                else if ($_GET['action'] == 'editer'){
+                // Afficher l'édition d'un article
+                else if ($_GET['action'] == 'getpostedit'){
                     $titre = $this->getParametre($_POST, 'titre');
                     $contenu = $this->getParametre($_POST, 'contenu');
                     $idBillet = $this->getParametre($_POST, 'id');
-                    $this->ctrlBillet->editer($titre, $contenu, $idBillet);
+                    $date = $this->getParametre($_POST, 'date');
+                    $this->ctrlBillet->getPostEdit($titre, $contenu, $idBillet, $date);
                 }
-
+                // Afficher l'édition d'un commentaire.
+                else if ($_GET['action'] == 'getcomedit'){
+                    $idBillet = $this->getParametre($_POST, 'id');
+                    $auteur = $this->getParametre($_POST, 'auteur');
+                    $contenu = $this->getParametre($_POST, 'contenu');
+                    $idCommentaire = $this->getParametre($_POST, 'id');
+                    $this->ctrlBillet->getComEdit($auteur, $contenu, $idCommentaire, $idBillet);
+                }
+                // Effectuer l'édition d'un article.
+                else if ($_GET['action'] == 'setpostedit') {
+                    $titre = $this->getParametre($_POST, 'titre');
+                    $contenu = $this->getParametre($_POST, 'contenu');
+                    $idBillet = $this->getParametre($_POST, 'id');
+                    $this->ctrlBillet->setPostEdit($titre, $contenu, $idBillet);
+                }
+                // Effectuer l'édition d'un commentaire.
+                else if ($_GET['action'] == 'setcomedit') {
+                    $auteur = $this->getParametre($_POST, 'auteur');
+                    $contenu = $this->getParametre($_POST, 'contenu');
+                    $idCommentaire = $this->getParametre($_POST, 'id');
+                    $this->ctrlBillet->setComEdit($auteur, $contenu, $idCommentaire);
+                }
+                // Supprimer un article
                 else if ($_GET['action'] == 'deleteBil'){
                     // Supprimer Billet.
                     $idBillet = $this->getParametre($_POST, 'id');
                     $this->ctrlBillet->supprimerBillet($idBillet);
                 }
-
+                // Supprimer commentaire.
+                else if ($_GET['action'] == 'supprimer'){
+                    // Supprimer commentaire.
+                    $idCommentaire = $this->getParametre($_POST, 'id');
+                    $this->ctrlBillet->supprimer($idCommentaire);
+                }
+                // Afficher la page de login.
                 else if ($_GET['action'] == 'connection'){
                     $this->ctrlLogin->connection();
+                }
+                // Effectuer la connection admin.
+                else if ($_GET['action'] == 'beloged'){
+                    $login = $this->getParametre($_POST, 'login');
+                    $password = $this->getParametre($_POST, 'password');
+                    $this->ctrlLogin->beloged($login, $password);
                 }
 
                 else

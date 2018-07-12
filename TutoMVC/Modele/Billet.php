@@ -33,9 +33,9 @@ class Billet extends Modele {
         $this->executerRequete($sql, array($date, $titre, $contenu));
     }
 
-    // Editer un billet.
-    public function editBillet() {
-
+    public function updatePost($titre, $contenu, $idBillet){
+        $sql ='UPDATE t_billet SET BIL_TITRE = ?, BIL_CONTENU = ? WHERE BIL_ID = ?';
+        $this->executerRequete($sql, array( $titre, $contenu, $idBillet));
     }
 
     // Supprimer billet.

@@ -30,14 +30,19 @@ class ControleurBillet {
         $vue->generer(array('billets' => $billets));
     }
 
-    // Edition d'un billet.
-    public function editer ($titre, $contenu, $idBillet){
-        $this->billet->editBillet($titre, $contenu, $idBillet);
-        $billets = $this->billet->getBillets();
-        $vue = new Vue ("Edit");
-        $vue->generer(array('billets' => $billets));
+    // Afficher edition d'un billet.
+    public function getPostEdit ($titre, $contenu, $idBillet, $date){
+        $vue = new Vue ("EditPost");
+        $vue->generer(array('contenu' => $contenu, 'titre' => $titre, 'date' => $date, 'id' => $idBillet));
     }
 
+    // Edition d'un billet.
+    public function setPostEdit ($titre, $contenu, $idBillet){
+        $this->billet->updatePost($titre, $contenu, $idBillet);
+        $billets = $this->billet->getBillets();
+        $vue = new Vue("Accueil");
+        $vue->generer(array('billets' => $billets));
+    }
 
     //  Suppression Billet.
     public function supprimerBillet ($idBillet){
@@ -48,14 +53,26 @@ class ControleurBillet {
     }
 
 
-    // Ajoute un commentaire à un billet
+    // Ajouter un commentaire à un billet
     public function commenter($auteur, $contenu, $idBillet) {
-        // Sauvegarde du commentaire
         $this->commentaire->ajouterCommentaire($auteur, $contenu, $idBillet);
-        // Actualisation de l'affichage du billet
         $this->billet($idBillet);
     }
 
+    // Afficher edition d'un commentaire.
+    public function getComEdit ($auteur, $contenu, $idCommentaire){
+        $vue = new Vue ("EditCom");
+        $vue->generer(array('contenu' => $contenu, 'auteur' => $auteur, 'id' => $idCommentaire));
+    }
+
+    // Edition d'un commentaire
+    public function setComEdit ($auteur, $contenu, $idCommentaire){
+        $this->commentaire->updateCom($auteur, $contenu, $idCommentaire);
+        $billets = $this->billet->getBillets();
+        $vue = new Vue("Accueil");
+        $vue->generer(array('billets' => $billets));
+
+    }
 
     // Supprimer un commentaire.
     public function supprimer ($idCommentaire){

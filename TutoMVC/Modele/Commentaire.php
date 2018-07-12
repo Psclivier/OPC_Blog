@@ -27,7 +27,9 @@ class Commentaire extends Modele {
         $this->executerRequete($sql, array($idCommentaire));
     }
 
-    public function editerCommentaire($idBillet){
-
+    // Editer un commentaire.
+    public function updateCom($auteur, $contenu, $idCommentaire){
+        $sql ='UPDATE t_commentaire SET COM_AUTEUR = ?, COM_CONTENU = ? WHERE COM_ID = ?';
+        $this->executerRequete($sql, array( $auteur, $contenu, $idCommentaire));
     }
 }

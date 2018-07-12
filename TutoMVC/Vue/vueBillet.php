@@ -10,10 +10,11 @@
 
 
     <!-- Formulaire edition billet.-->
-    <form method="post" action="index.php?action=editer">
-        <input type="hidden" name="id" value="<?= $billet['contenu'] ?>" />
+    <form method="post" action="index.php?action=getpostedit">
+        <input type="hidden" name="contenu" value="<?= $billet['contenu'] ?>" />
         <input type="hidden" name="id" value="<?= $billet['id'] ?>" />
-        <input type="hidden" name="id" value="<?= $billet['titre'] ?>" />
+        <input type="hidden" name="titre" value="<?= $billet['titre'] ?>" />
+        <input type="hidden" name="date" value="<?= $billet['date'] ?>" />
         <input type="submit" name="edit_submit" value="Editer" />
     </form>
 
@@ -45,10 +46,11 @@
 
 
     <!--  Formulaire édition commentaire.  -->
-    <form method="post" action="index.php?action=editerCom">
+    <form method="post" action="index.php?action=getcomedit">
+        <input type="submit" name="id" value="<?= $billet['id'] ?>" />
         <input type="hidden" name="id" value="<?= $commentaire['id'] ?>" />
-        <input type="hidden" name="id" value="<?= $commentaire['contenu'] ?>" />
-        <input type="hidden" name="id" value="<?= $commentaire['auteur'] ?>" />
+        <input type="hidden" name="contenu" value="<?= $commentaire['contenu'] ?>" />
+        <input type="hidden" name="auteur" value="<?= $commentaire['auteur'] ?>" />
         <input type="submit" value="Editer" />
     </form>
 
