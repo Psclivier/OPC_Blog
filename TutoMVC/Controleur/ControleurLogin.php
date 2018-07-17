@@ -23,8 +23,8 @@ Class ControleurLogin
         $Objlogin->beloged($login, $password);
         $vue = new Vue ("Login");
         $vue->generer([]);
-
     }
+
 }
 
 

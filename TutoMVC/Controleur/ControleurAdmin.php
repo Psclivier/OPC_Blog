@@ -18,4 +18,10 @@ Class ControleurAdmin {
         $this->billet = new Billet();
         $this->commentaire = new Commentaire();
     }
+
+    public function moderation(){
+        $commentaires = $this->commentaire->getAllCom();
+        $vue = new Vue ("ComMod");
+        $vue->generer(array('commentaires' => $commentaires));
+    }
 }

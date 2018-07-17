@@ -1,5 +1,3 @@
-<?php $this->titre = "Mon Blog"; ?>
-
 <div id="connexion" class="connexion">
     <div class="container">
 

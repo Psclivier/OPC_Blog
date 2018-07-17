@@ -1,10 +1,3 @@
-
-
-
-<?php $this->titre = "Mon Blog - "; ?>
-
-
-
 <article>
     <header>
         <h1 class="titreBillet"><?= $titre ?></h1>

@@ -16,6 +16,7 @@ class Routeur {
         $this->ctrlAccueil = new ControleurAccueil();
         $this->ctrlBillet = new ControleurBillet();
         $this->ctrlLogin = new ControleurLogin();
+        $this->ctrlAdmin = new ControleurAdmin();
     }
 
     // Route une requête entrante : exécute l'action associée
@@ -95,6 +96,18 @@ class Routeur {
                     $login = $this->getParametre($_POST, 'login');
                     $password = $this->getParametre($_POST, 'password');
                     $this->ctrlLogin->beloged($login, $password);
+                }
+                else if ($_GET['action'] == 'signalcom'){
+                    $idCommentaire = $this->getParametre($_POST, 'id');
+                    $this->ctrlBillet->signalCom($idCommentaire);
+                }
+                // Afficher page modération.
+                else if ($_GET['action'] == 'moderation'){
+                    $this->ctrlAdmin->moderation();
+                }
+                // Afficher page d'écriture d'article.
+                else if ($_GET['action'] == 'gotoEditor') {
+                    $this->ctrlBillet->gotoEditor();
                 }
 
                 else

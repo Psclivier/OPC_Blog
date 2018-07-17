@@ -82,6 +82,17 @@ class ControleurBillet {
         $vue->generer(array('billets' => $billets));
     }
 
+    // Signaler un commentaire.
+    public function signalCom($idCommentaire){
+        $this->commentaire->incrementIndex($idCommentaire);
+    }
+    // Afficher la page editeur de texte.
+    public function gotoEditor (){
+        $vue = new Vue ("Editor");
+        $vue->generer([]);
+
+    }
+
 
 
 }

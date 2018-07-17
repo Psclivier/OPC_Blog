@@ -13,6 +13,14 @@ class Commentaire extends Modele {
         return $commentaires;
     }
 
+    public function getAllCom(){
+        $sql = 'select COM_ID as id, COM_DATE as date,'
+            . ' COM_AUTEUR as auteur, COM_CONTENU as contenu from T_COMMENTAIRE'
+            . ' order by COM_INDEX desc';
+        $commentaires = $this->executerRequete($sql);
+        return $commentaires;
+    }
+
     // Ajoute un commentaire dans la base
     public function ajouterCommentaire($auteur, $contenu, $idBillet) {
         $sql = 'insert into T_COMMENTAIRE(COM_DATE, COM_AUTEUR, COM_CONTENU, BIL_ID)'
@@ -31,5 +39,12 @@ class Commentaire extends Modele {
     public function updateCom($auteur, $contenu, $idCommentaire){
         $sql ='UPDATE t_commentaire SET COM_AUTEUR = ?, COM_CONTENU = ? WHERE COM_ID = ?';
         $this->executerRequete($sql, array( $auteur, $contenu, $idCommentaire));
+    }
+
+    // Signaler un commentaire.
+    public function incrementIndex($idCommentaire){
+        $sql ='UPDATE t_commentaire SET COM_INDEX = COM_INDEX + 1 WHERE COM_ID = ?';
+        $this->executerRequete($sql, array($idCommentaire));
+        echo "Le commentaire a été signaler.";
     }
 }
