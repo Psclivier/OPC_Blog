@@ -55,11 +55,10 @@ class Routeur {
                 }
                 // Afficher l'édition d'un commentaire.
                 else if ($_GET['action'] == 'getcomedit'){
-                    $idBillet = $this->getParametre($_POST, 'id');
-                    $auteur = $this->getParametre($_POST, 'auteur');
-                    $contenu = $this->getParametre($_POST, 'contenu');
-                    $idCommentaire = $this->getParametre($_POST, 'id');
-                    $this->ctrlBillet->getComEdit($auteur, $contenu, $idCommentaire, $idBillet);
+                    $auteur = $this->getParametre($_GET, 'auteur');
+                    $contenu = $this->getParametre($_GET, 'contenu');
+                    $idCommentaire = $this->getParametre($_GET, 'id');
+                    $this->ctrlBillet->getComEdit($auteur, $contenu, $idCommentaire);
                 }
                 // Effectuer l'édition d'un article.
                 else if ($_GET['action'] == 'setpostedit') {
@@ -78,27 +77,35 @@ class Routeur {
                 // Supprimer un article
                 else if ($_GET['action'] == 'deleteBil'){
                     // Supprimer Billet.
-                    $idBillet = $this->getParametre($_POST, 'id');
+                    $idBillet = $this->getParametre($_GET, 'id');
                     $this->ctrlBillet->supprimerBillet($idBillet);
                 }
+
                 // Supprimer commentaire.
                 else if ($_GET['action'] == 'supprimer'){
                     // Supprimer commentaire.
-                    $idCommentaire = $this->getParametre($_POST, 'id');
+                    $idCommentaire = intval($this->getParametre($_GET, 'id'));
                     $this->ctrlBillet->supprimer($idCommentaire);
+
                 }
+
                 // Afficher la page de login.
                 else if ($_GET['action'] == 'connection'){
                     $this->ctrlLogin->connection();
                 }
-                // Effectuer la connection admin.
+                // Effectuer la connection .
                 else if ($_GET['action'] == 'beloged'){
                     $login = $this->getParametre($_POST, 'login');
                     $password = $this->getParametre($_POST, 'password');
                     $this->ctrlLogin->beloged($login, $password);
                 }
+                // Deconnexion
+                else if ($_GET['action'] == 'logoff') {
+                    $this->ctrlLogin->logOff();
+                }
+                // Signaler un commentaire.
                 else if ($_GET['action'] == 'signalcom'){
-                    $idCommentaire = $this->getParametre($_POST, 'id');
+                    $idCommentaire = $this->getParametre($_GET, 'id');
                     $this->ctrlBillet->signalCom($idCommentaire);
                 }
                 // Afficher page modération.
@@ -108,6 +115,18 @@ class Routeur {
                 // Afficher page d'écriture d'article.
                 else if ($_GET['action'] == 'gotoEditor') {
                     $this->ctrlBillet->gotoEditor();
+                }
+
+                // Afficher page d'inscription.
+                else if ($_GET['action'] == 'gotoregistration') {
+                    $this->ctrlLogin->gotoRegistration();
+                }
+
+                // Valider l'inscription.
+                else if ($_GET['action'] == 'registration') {
+                    $login = $this->getParametre($_POST, 'login');
+                    $password = $this->getParametre($_POST, 'password');
+                    $this->ctrlLogin->registration($login, $password);
                 }
 
                 else

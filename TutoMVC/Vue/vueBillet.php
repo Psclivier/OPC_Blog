@@ -8,13 +8,10 @@
     <p><?= $billet['contenu'] ?></p>
 
 
+<?php if ($_SESSION['rank'] == "admin") : ?>
+    <!--  suppression billet.-->
+    <p><a href="<?= "index.php?action=deleteBil&id=" . $billet['id'] ?>"class="btn btn-danger">Supprimer</a></p>
 
-
-    <!--  Formulaire suppression billet.-->
-    <form method="post" id="supprimer"  action="index.php?action=deleteBil">
-        <input type="hidden" name="id" value="<?= $billet['id'] ?>" />
-        <input type="submit" class="btn-danger" value="Supprimer" />
-    </form>
     <!-- Formulaire edition billet.-->
     <form method="post" id="editer" action="index.php?action=getpostedit">
         <input type="hidden" name="contenu" value="<?= $billet['contenu'] ?>" />
@@ -23,6 +20,9 @@
         <input type="hidden" name="date" value="<?= $billet['date'] ?>" />
         <input type="submit" class="btn-warning" name="edit_submit" value="Editer" />
     </form>
+    <!-- édition commentaire.  -->
+    <p><a href="<?= "index.php?action=getpostedit&id=" . $billet['id'] . "&titre=" . $billet['titre'] . "&contenu=" . $billet['contenu'] . "&date=" . $billet['date'] ?>"class="btn btn-warning">Editer</a></p>
+<?php endif; ?>
 </article>
 <hr />
 
@@ -32,41 +32,35 @@
     <h1 id="titreReponses">Réponses à <?= $billet['titre'] ?></h1>
 </header>
 <?php foreach ($commentaires as $commentaire): ?>
+<div class="media thumbnail">
     <p><?= $commentaire['auteur'] ?> dit :</p>
     <p><?= $commentaire['contenu'] ?></p>
 
 
-
-    <!-- Formulaire suppression commentaire.   -->
-    <form method="post" id="supprimer" action="index.php?action=supprimer">
-        <input type="hidden" name="id" value="<?= $commentaire['id'] ?>" />
-        <input type="submit" class="btn-danger" value="Supprimer" />
-    </form>
+<?php if ($_SESSION['rank'] == "admin") : ?>
+    <!-- suppression commentaire.   -->
+    <p><a href="<?= "index.php?action=supprimer&id=" . $commentaire['id'] ?>" class="btn btn-danger">Supprimer</a></p>
 
 
-    <!--  Formulaire édition commentaire.  -->
-    <form method="post" id="editer" action="index.php?action=getcomedit">
-        <input type="hidden" name="id" value="<?= $billet['id'] ?>" />
-        <input type="hidden" name="id" value="<?= $commentaire['id'] ?>" />
-        <input type="hidden" name="contenu" value="<?= $commentaire['contenu'] ?>" />
-        <input type="hidden" name="auteur" value="<?= $commentaire['auteur'] ?>" />
-        <input type="submit" class="btn-warning" value="Editer" />
-    </form>
+    <!-- édition commentaire.  -->
+    <p><a href="<?= "index.php?action=getcomedit&id=" . $commentaire['id'] . "&auteur=" . $commentaire['auteur'] . "&contenu=" . $commentaire['contenu'] ?>"class="btn btn-warning">Editer</a></p>
+    <?php endif; ?>
 
-    <!--  Formulaire signalement d'un commentaire.  -->
-    <form method="post" action="index.php?action=signalcom">
-        <input type="hidden" name="id" value="<?= $commentaire['id'] ?>" />
-        <input type="submit" class="btn-danger" value="Signaler" />
-    </form>
+    <!--  signalement d'un commentaire.  -->
+    <p><a href="<?= "index.php?action=signalcom&id=" . $commentaire['id'] ?>"class="btn btn-danger">Signaler</a></p>
 
+
+
+</div>
 <?php endforeach; ?>
 <hr />
+<?php if (isset($_SESSION['rank'])) : ?>
 <form method="post" action="index.php?action=commenter">
     <input id="auteur" name="auteur" type="text" placeholder="Votre pseudo" 
            required /><br />
     <textarea id="txtCommentaire" name="contenu" rows="4" 
               placeholder="Votre commentaire" required></textarea><br />
     <input type="hidden" name="id" value="<?= $billet['id'] ?>" />
-    <input type="submit" class="btn-group-lg" value="Commenter" />
+    <input type="submit" class="btn-info" value="Commenter" />
 </form>
-
+<?php endif; ?>

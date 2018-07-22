@@ -10,27 +10,20 @@
 
 
 <?php foreach ($commentaires as $commentaire): ?>
+<div class="media thumbnail">
     <p><?= $commentaire['auteur'] ?> dit :</p>
     <p><?= $commentaire['contenu'] ?></p>
 
 
 
     <!-- Formulaire suppression commentaire.   -->
-    <form method="post" id="supprimer" action="index.php?action=supprimer">
-        <input type="hidden" name="id" value="<?= $commentaire['id'] ?>" />
-        <input type="submit" class="btn-danger" value="Supprimer" />
-    </form>
+    <p><a href="<?= "index.php?action=supprimer&id=" . $commentaire['id'] ?>" class="btn btn-danger">Supprimer</a></p>
 
 
-    <!--  Formulaire édition commentaire.  -->
-    <form method="post" id="editer" action="index.php?action=getcomedit">
-        <input type="hidden" name="id" value="<?= $billet['id'] ?>" />
-        <input type="hidden" name="id" value="<?= $commentaire['id'] ?>" />
-        <input type="hidden" name="contenu" value="<?= $commentaire['contenu'] ?>" />
-        <input type="hidden" name="auteur" value="<?= $commentaire['auteur'] ?>" />
-        <input type="submit" class="btn-warning" value="Editer" />
-    </form>
-    <hr />
+    <!-- édition commentaire.  -->
+    <p><a href="<?= "index.php?action=getcomedit&id=" . $commentaire['id'] . "&auteur=" . $commentaire['auteur'] . "&contenu=" . $commentaire['contenu'] ?>"class="btn btn-warning">Editer</a></p>
+</div>
+
 
 
 <?php endforeach; ?>

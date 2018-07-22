@@ -10,7 +10,7 @@
                     <div class="form-group">
                         <input type="password" class="form-control" name="password" placeholder="Mot de passe">
                     </div>
-                    <button type="submit" class="btn" value="beloged">Se connecter</button>
+                    <button type="submit" class="btn btn-success" value="beloged">Se connecter</button>
                 </div>
             </div>
         </form>

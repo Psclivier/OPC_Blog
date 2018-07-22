@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <?php
 /**
  * Created by PhpStorm.
@@ -40,7 +41,7 @@ class Login extends Modele
 
         // Vérification des log avec la bdd.
 
-            $sql = 'SELECT id, login, pssword FROM users WHERE login=? AND pssword=?';
+            $sql = 'SELECT id, login, pssword, rank FROM users WHERE login=? AND pssword=?';
             $confirmation = $this->executerRequete($sql, array($loginsecure, $password_hash));
             $resultat = $confirmation->fetch();
 
@@ -50,7 +51,8 @@ class Login extends Modele
             if(!isset($_SESSION['id']))
             {
                 $_SESSION['id'] = $resultat['id'];
-                $_SESSION['nom_utilisateur'] = $nom_utilisateur;
+                $_SESSION['nom_utilisateur'] = $login;
+                $_SESSION['rank'] = $resultat['rank'];
             }
 
             echo  "Vous êtes connecté" ;
@@ -61,5 +63,16 @@ class Login extends Modele
             echo "Mot de passe ou nom d'utilisateur est éronné ";
 
         }
+    }
+
+    public function registration($login, $password){
+
+        $password_hash = sha1($password);
+        $sql = 'INSERT INTO users(login,pssword) VALUES (?,?)';
+        $this->executerRequete($sql, array($login, $password_hash));
+    }
+
+    public function logOff (){
+        session_destroy();
     }
 }
