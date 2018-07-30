@@ -8,7 +8,7 @@
             </a>
             <time><?= $billet['date'] ?></time>
         </header>
-        <p><?= $billet['contenu'] ?></p>
+        <p><?= substr($billet['contenu'],0, 500) ?></p>
     </article>
     <hr />
 <?php endforeach; ?>

@@ -1,30 +1,39 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Paulin
+ * Date: 28/07/2018
+ * Time: 10:27
+ */
 
-require_once 'Modele/Modele.php';
 
 
-class Billet extends Modele {
+require_once 'src/DAO/DAO.php';
+
+
+class BilletDAO extends \BlogPSC\Database{
     // Liste des billets du blog.
-    public function getBillets() {
+    public function getBillets()
+    {
         $sql = 'select BIL_ID as id, BIL_DATE as date,'
-                . ' BIL_TITRE as titre, BIL_CONTENU as contenu from T_BILLET'
-                . ' order by BIL_ID desc';
+            . ' BIL_TITRE as titre, BIL_CONTENU as contenu from T_BILLET'
+            . ' order by BIL_ID desc';
         $billets = $this->executerRequete($sql);
         return $billets;
     }
 
     // Récupère les infos d'un billet.
-    public function getBillet($idBillet) {
+    public function getBillet($idBillet)
+    {
         $sql = 'select BIL_ID as id, BIL_DATE as date,'
-                . ' BIL_TITRE as titre, BIL_CONTENU as contenu from T_BILLET'
-                . ' where BIL_ID=?';
+            . ' BIL_TITRE as titre, BIL_CONTENU as contenu from T_BILLET'
+            . ' where BIL_ID=?';
         $billet = $this->executerRequete($sql, array($idBillet));
         if ($billet->rowCount() > 0)
             return $billet->fetch();  // Accès à la première ligne de résultat
         else
             throw new Exception("Aucun billet ne correspond à l'identifiant '$idBillet'");
     }
-
     // Ajoute un nouveau billet.
     public function addBillet($titre, $contenu) {
         $sql = 'insert into T_Billet(BIL_DATE, BIL_TITRE, BIL_CONTENU)'
@@ -40,8 +49,8 @@ class Billet extends Modele {
 
     // Supprimer billet.
     public function deleteBillet($idBillet){
-        $sql = 'DELETE FROM T_BILLET WHERE BIL_ID = ?';
+//        $sql = 'DELETE FROM T_BILLET WHERE BIL_ID = ?';
+        $sql = 'DELETE FROM T_BILLET INNER JOIN T_COMMENTAIRE WHERE T_BILLET.BIL_ID = T_COMMENTAIRE.BIL_ID AND BIL_ID = ?';
         $this->executerRequete($sql, array($idBillet));
     }
-
 }

@@ -6,8 +6,8 @@
  * Time: 10:00
  */
 require_once 'Vue/Vue.php';
-require_once 'Modele/Billet.php';
-require_once 'Modele/Commentaire.php';
+require_once 'src/DAO/BilletDAO.php';
+require_once 'src/DAO/CommentDAO.php';
 
 Class ControleurAdmin {
 
@@ -15,13 +15,13 @@ Class ControleurAdmin {
     private $commentaire;
 
     public function __construct() {
-        $this->billet = new Billet();
-        $this->commentaire = new Commentaire();
+        $this->billet = new BilletDAO();
+        $this->commentaire = new CommentDAO();
     }
 
     public function moderation(){
         $commentaires = $this->commentaire->getAllCom();
-        $vue = new Vue ("ComMod");
+        $vue = new \BlogPSC\Vue ("ComMod");
         $vue->generer(array('commentaires' => $commentaires));
     }
 }

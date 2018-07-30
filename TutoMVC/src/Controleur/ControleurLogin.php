@@ -7,19 +7,19 @@
  */
 
 
-require_once 'Modele/Login.php';
+require_once 'src/Modele/Login.php';
 
 Class ControleurLogin
 {
     private $billet;
 
     public function __construct() {
-        $this->billet = new Billet();
+        $this->billet = new BilletDAO();
     }
 
     public function connection()
     {
-        $vue = new Vue ("Login");
+        $vue = new \BlogPSC\Vue ("Login");
         $vue->generer([]);
     }
 
@@ -27,18 +27,18 @@ Class ControleurLogin
         $Objlogin = new Login();
         $Objlogin->beloged($login, $password);
         $billets = $this->billet->getBillets();
-        $vue = new Vue("Accueil");
+        $vue = new \BlogPSC\Vue("Accueil");
         $vue->generer(array('billets' => $billets));
     }
     public function logOff(){
         $Objlogin = new Login();
         $Objlogin->logOff();
         $billets = $this->billet->getBillets();
-        $vue = new Vue("Accueil");
+        $vue = new \BlogPSC\Vue("Accueil");
         $vue->generer(array('billets' => $billets));
     }
     public function gotoRegistration(){
-        $vue = new Vue ("Registration");
+        $vue = new \BlogPSC\Vue ("Registration");
         $vue->generer([]);
     }
 

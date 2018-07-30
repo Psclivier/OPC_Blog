@@ -1,6 +1,6 @@
 <?php $this->titre = "Mon Blog - " . $billet['titre']; ?>
 
-<article>
+<article id="billet">
     <header>
         <h1 class="titreBillet"><?= $billet['titre'] ?></h1>
         <time><?= $billet['date'] ?></time>
@@ -10,18 +10,10 @@
 
 <?php if ($_SESSION['rank'] == "admin") : ?>
     <!--  suppression billet.-->
-    <p><a href="<?= "index.php?action=deleteBil&id=" . $billet['id'] ?>"class="btn btn-danger">Supprimer</a></p>
+    <p><a href="<?= "index.php?action=deleteBil&id=" . $billet['id'] ?>" id="delete" class="btn btn-danger">Supprimer</a></p>
 
-    <!-- Formulaire edition billet.-->
-    <form method="post" id="editer" action="index.php?action=getpostedit">
-        <input type="hidden" name="contenu" value="<?= $billet['contenu'] ?>" />
-        <input type="hidden" name="id" value="<?= $billet['id'] ?>" />
-        <input type="hidden" name="titre" value="<?= $billet['titre'] ?>" />
-        <input type="hidden" name="date" value="<?= $billet['date'] ?>" />
-        <input type="submit" class="btn-warning" name="edit_submit" value="Editer" />
-    </form>
-    <!-- édition commentaire.  -->
-    <p><a href="<?= "index.php?action=getpostedit&id=" . $billet['id'] . "&titre=" . $billet['titre'] . "&contenu=" . $billet['contenu'] . "&date=" . $billet['date'] ?>"class="btn btn-warning">Editer</a></p>
+    <!-- édition article.  -->
+    <p><a href="<?= "index.php?action=getpostedit&id=" . $billet['id']?>"id="edit" class="btn btn-warning">Editer</a></p>
 <?php endif; ?>
 </article>
 <hr />
@@ -39,28 +31,52 @@
 
 <?php if ($_SESSION['rank'] == "admin") : ?>
     <!-- suppression commentaire.   -->
-    <p><a href="<?= "index.php?action=supprimer&id=" . $commentaire['id'] ?>" class="btn btn-danger">Supprimer</a></p>
-
+    <p><a href="<?= "index.php?action=supprimer&id=" . $commentaire['id'] ?>" id="deletecom" class="btn btn-danger">Supprimer</a></p>
 
     <!-- édition commentaire.  -->
-    <p><a href="<?= "index.php?action=getcomedit&id=" . $commentaire['id'] . "&auteur=" . $commentaire['auteur'] . "&contenu=" . $commentaire['contenu'] ?>"class="btn btn-warning">Editer</a></p>
+    <p><a href="<?= "index.php?action=getcomedit&idcom=" . $commentaire['id'] ?>"id="editcom" class="btn btn-warning">Editer</a></p>
     <?php endif; ?>
 
+<?php if ($_SESSION['rank'] == "user") : ?>
     <!--  signalement d'un commentaire.  -->
-    <p><a href="<?= "index.php?action=signalcom&id=" . $commentaire['id'] ?>"class="btn btn-danger">Signaler</a></p>
-
+    <p><a href="<?= "index.php?action=signalcom&id=" . $commentaire['id'] ?>" id="signal" class="btn btn-danger">Signaler</a></p>
+<?php endif; ?>
 
 
 </div>
 <?php endforeach; ?>
 <hr />
 <?php if (isset($_SESSION['rank'])) : ?>
+
+
+
+
+<!---->
+<?php
+//require 'recaptcha.php';
+//if (!empty($_POST)){
+//    $captcha = new Recaptcha('6LeYuGYUAAAAAMl_WLEuka5-EUp5NbRqM_JwQp5K');
+//    if ($captcha->checkCode($_POST['g-recaptcha-response']) === false) {
+//        ?>
+<!--        <div class="alert alert-danger">-->
+<!--            Captcha invalide.-->
+<!--        </div>-->
+<!--        --><?php
+//    } else {
+//    }
+//    }
+//    ?>
 <form method="post" action="index.php?action=commenter">
     <input id="auteur" name="auteur" type="text" placeholder="Votre pseudo" 
            required /><br />
     <textarea id="txtCommentaire" name="contenu" rows="4" 
               placeholder="Votre commentaire" required></textarea><br />
     <input type="hidden" name="id" value="<?= $billet['id'] ?>" />
+    <div class="g-recaptcha" data-sitekey="6LeYuGYUAAAAADoGM4Jc7Xs77ZMc_g3y6_hWicCG"></div>
     <input type="submit" class="btn-info" value="Commenter" />
 </form>
+
+
+
+
 <?php endif; ?>

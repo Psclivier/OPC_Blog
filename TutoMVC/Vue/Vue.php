@@ -1,5 +1,7 @@
 <?php
 
+namespace BlogPSC;
+
 class Vue { // Sert à gérer la génération des vues.
 
     // Nom du fichier associé à la vue

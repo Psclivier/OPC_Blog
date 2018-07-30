@@ -4,11 +4,12 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8" />
-        <link rel="stylesheet" href="Contenu/style.css" />
-        <link href="Contenu/bootstrap.css" rel="stylesheet">
-        <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
-        <script src="Contenu/TinyMce.js"></script>
-        <script>tinymce.init({ });</script>
+        <link rel="stylesheet" href="public/style.css" />
+        <link href="public/bootstrap.css" rel="stylesheet">
+        <script type="text/javascript" src="public/jquery.min.js"></script>
+        <script type="text/javascript" src="public/plugin/tinymce/tinymce.min.js"></script>
+        <script type="text/javascript" src="public/plugin/tinymce/initmce.js"></script>
+        <script src='https://www.google.com/recaptcha/api.js'></script>
         <title><?= $titre ?></title>
 
     </head>
@@ -16,11 +17,11 @@
         <div id="global">
             <header>
                 <h1 id="titreBlog">Mon Blog</h1></a>
-                <p>Je vous souhaite la bienvenue sur ce modeste blog.</p>
+                <p>
                 <?php if (isset($_SESSION['rank'])) {
-                    echo "Bonjour" . $_SESSION['nom_utilisateur'];
+                    echo "Bonjour " . $_SESSION['nom_utilisateur'];
 
-                }?>
+                }?></p>
                 <nav class="navbar navbar-default">
                     <ul class="nav navbar-nav">
                         <li class="nav-item">

@@ -2,11 +2,14 @@
 
 // Analyse la requète entrante pour déterminer l'action à entreprendre.
 
-require_once 'ControleurAccueil.php';
-require_once 'ControleurBillet.php';
-require_once 'ControleurAdmin.php';
-require_once 'ControleurLogin.php';
+require_once 'src/Controleur/ControleurAccueil.php';
+require_once 'src/Controleur/ControleurBillet.php';
+require_once 'src/Controleur/ControleurAdmin.php';
+require_once 'src/Controleur/ControleurLogin.php';
 require_once 'Vue/Vue.php';
+require_once 'recaptcha.php';
+
+
 class Routeur {
 
     private $ctrlAccueil;
@@ -33,32 +36,33 @@ class Routeur {
                 }
                 // Poster un commentaire.
                 else if ($_GET['action'] == 'commenter') {
-                    $auteur = $this->getParametre($_POST, 'auteur');
-                    $contenu = $this->getParametre($_POST, 'contenu');
-                    $idBillet = $this->getParametre($_POST, 'id');
-                    $this->ctrlBillet->commenter($auteur, $contenu, $idBillet);
+                    $captcha = new Recaptcha('6LeYuGYUAAAAAMl_WLEuka5-EUp5NbRqM_JwQp5K');
+                    if ($captcha->checkCode($_POST['g-recaptcha-response']) === false) {
+                        throw new Exception("Captcha non valide");
+                    } else {
+                        $auteur = $this->getParametre($_POST, 'auteur');
+                        $contenu = $this->getParametre($_POST, 'contenu');
+                        $idBillet = $this->getParametre($_POST, 'id');
+                        $this->ctrlBillet->commenter($auteur, $contenu, $idBillet);
+                    }
+
                 }
                 // Poster un article.
                 else if ($_GET['action'] == 'poster'){
                     // Poster un Billet.
-                    $contenu = $this->getParametre($_POST, 'contenu');
+                    $contenu = $this->getParametre($_POST, 'editeur');
                     $titre = $this->getParametre($_POST, 'titre');
                     $this->ctrlBillet->poster( $contenu, $titre);
                 }
                 // Afficher l'édition d'un article
                 else if ($_GET['action'] == 'getpostedit'){
-                    $titre = $this->getParametre($_POST, 'titre');
-                    $contenu = $this->getParametre($_POST, 'contenu');
-                    $idBillet = $this->getParametre($_POST, 'id');
-                    $date = $this->getParametre($_POST, 'date');
-                    $this->ctrlBillet->getPostEdit($titre, $contenu, $idBillet, $date);
+                    $idBillet = $this->getParametre($_GET, 'id');
+                    $this->ctrlBillet->getPostEdit($idBillet);
                 }
                 // Afficher l'édition d'un commentaire.
                 else if ($_GET['action'] == 'getcomedit'){
-                    $auteur = $this->getParametre($_GET, 'auteur');
-                    $contenu = $this->getParametre($_GET, 'contenu');
-                    $idCommentaire = $this->getParametre($_GET, 'id');
-                    $this->ctrlBillet->getComEdit($auteur, $contenu, $idCommentaire);
+                    $idCommentaire = $this->getParametre($_GET, 'idcom');
+                    $this->ctrlBillet->getComEdit($idCommentaire);
                 }
                 // Effectuer l'édition d'un article.
                 else if ($_GET['action'] == 'setpostedit') {

@@ -1,25 +1,33 @@
 <?php
 
-require_once 'Modele/Modele.php';
+require_once 'src/Modele/Modele.php';
 
 class Commentaire extends Modele {
 
-    // Renvoie la liste des commentaires associés à un billet
-    public function getCommentaires($idBillet) {
-        $sql = 'select COM_ID as id, COM_DATE as date,'
-                . ' COM_AUTEUR as auteur, COM_CONTENU as contenu from T_COMMENTAIRE'
-                . ' where BIL_ID=?';
-        $commentaires = $this->executerRequete($sql, array($idBillet));
-        return $commentaires;
-    }
-
-    public function getAllCom(){
-        $sql = 'select COM_ID as id, COM_DATE as date,'
-            . ' COM_AUTEUR as auteur, COM_CONTENU as contenu from T_COMMENTAIRE'
-            . ' order by COM_INDEX desc';
-        $commentaires = $this->executerRequete($sql);
-        return $commentaires;
-    }
+//    // Renvoie la liste des commentaires associés à un billet
+//    public function getCommentaires($idBillet) {
+//        $sql = 'select COM_ID as id, COM_DATE as date,'
+//                . ' COM_AUTEUR as auteur, COM_CONTENU as contenu from T_COMMENTAIRE'
+//                . ' where BIL_ID=?';
+//        $commentaires = $this->executerRequete($sql, array($idBillet));
+//        return $commentaires;
+//    }
+//
+//    public function getAllCom(){
+//        $sql = 'select COM_ID as id, COM_DATE as date,'
+//            . ' COM_AUTEUR as auteur, COM_CONTENU as contenu from T_COMMENTAIRE'
+//            . ' order by COM_INDEX desc';
+//        $commentaires = $this->executerRequete($sql);
+//        return $commentaires;
+//    }
+//
+//    public function getComInfo ($idCommentaire){
+//        $sql = 'select COM_ID as id, COM_DATE as date,'
+//            . ' COM_AUTEUR as auteur, COM_CONTENU as contenu from T_COMMENTAIRE'
+//            . ' where COM_ID=?';
+//        $commentaires = $this->executerRequete($sql, array($idCommentaire));
+//        return $commentaires->fetch();
+//    }
 
     // Ajoute un commentaire dans la base
     public function ajouterCommentaire($auteur, $contenu, $idBillet) {

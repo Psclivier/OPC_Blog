@@ -17,11 +17,11 @@
 
 
     <!-- Formulaire suppression commentaire.   -->
-    <p><a href="<?= "index.php?action=supprimer&id=" . $commentaire['id'] ?>" class="btn btn-danger">Supprimer</a></p>
+    <p><a href="<?= "index.php?action=supprimer&id=" . $commentaire['id'] ?>"id="delete" class="btn btn-danger">Supprimer</a></p>
 
 
     <!-- édition commentaire.  -->
-    <p><a href="<?= "index.php?action=getcomedit&id=" . $commentaire['id'] . "&auteur=" . $commentaire['auteur'] . "&contenu=" . $commentaire['contenu'] ?>"class="btn btn-warning">Editer</a></p>
+    <p><a href="<?= "index.php?action=getcomedit&id=" . $commentaire['id'] ?>"id="edit" class="btn btn-warning">Editer</a></p>
 </div>
 
 
