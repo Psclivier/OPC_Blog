@@ -35,5 +35,4 @@ abstract class Database {
         }
         return $this->bdd;
     }
-
 }

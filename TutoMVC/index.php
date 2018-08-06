@@ -1,9 +1,9 @@
 <?php
 
-require 'src/Controleur/Routeur.php';
+require 'src/controller/Routeur.php';
 
-//require '../config/Autoloader.php';
-//App\config\Autoloader::register();
+//require 'TutoMVC/config/Autoloader.php';
+//TutoMVC\config\Autoloader::register();
 
 $routeur = new Routeur();
 $routeur->routerRequete();

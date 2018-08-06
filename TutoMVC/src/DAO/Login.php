@@ -9,9 +9,9 @@
 
 
 
-require_once 'src/Modele/Modele.php';
+require_once 'src/DAO/DAO.php';
 
-class Login extends Modele
+class Login extends \BlogPSC\Database
 {
     // Vérification des informations rentrées dans les champs.
     public function beloged($login, $password)

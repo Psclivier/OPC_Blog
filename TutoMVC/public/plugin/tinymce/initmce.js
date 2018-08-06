@@ -2,7 +2,7 @@ tinymce.init({
     selector: "#editeur",
 
     plugins: [
-        "advlist autolink  lists charmap print preview hr anchor pagebreak",
+        "advlist autolink link image lists charmap print preview hr anchor pagebreak image",
         "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media",
         "save table contextmenu directionality emoticons template paste textcolor"
 

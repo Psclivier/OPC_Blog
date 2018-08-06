@@ -21,8 +21,9 @@
 
 
     <!-- édition commentaire.  -->
-    <p><a href="<?= "index.php?action=getcomedit&id=" . $commentaire['id'] ?>"id="edit" class="btn btn-warning">Editer</a></p>
+    <p><a href="<?= "index.php?action=getcomedit&idcom=" . $commentaire['id'] ?>"id="edit" class="btn btn-warning">Editer</a></p>
 </div>
+
 
 
 

@@ -20,7 +20,7 @@ h1 {
 #global {
     min-height: 100%;
     background:antiquewhite;
-    width: 1000px;
+    width: 100%;
     margin: auto;
     text-align: justify;
     padding: 5px 20px;
@@ -40,10 +40,16 @@ h1 {
 }
 
 #txtCommentaire {
-    width: 50%;
+    width: 90%;
 }
 
+.navbar {
+    width: 100%;
+}
 
+.navbar li {
+    text-align: center;
+}
 
 #edit {
     position: relative;
@@ -58,8 +64,8 @@ h1 {
 
 #signal{
     position: relative;
-    left: 870px;
-    bottom: 56px;
+    left: 240px;
+
 
 }
 #deletecom{
@@ -72,5 +78,35 @@ h1 {
     position: relative;
     left: 870px;
     bottom: 100px;
+}
+
+
+
+@media only screen and (min-width: 760px) {
+
+}
+
+@media only screen and (min-width: 1024px) {
+
+    #global {
+        min-height: 100%;
+        background:antiquewhite;
+        width: 1000px;
+        margin: auto;
+        text-align: justify;
+        padding: 5px 20px;
+    }
+
+    #txtCommentaire {
+        width: 50%;
+    }
+
+    #signal{
+        position: relative;
+        left: 870px;
+        bottom: 56px;
+
+    }
+
 }
 

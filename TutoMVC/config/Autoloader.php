@@ -1,7 +1,6 @@
 <?php
 
-namespace App\config;
-
+namespace TutoMVC\config\Autoloader;
 class Autoloader{
 
     public static function register(){
@@ -14,7 +13,6 @@ class Autoloader{
         require '../'.$class.'.php';
     }
 }
-
 
 ?>
 

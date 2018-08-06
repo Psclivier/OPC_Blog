@@ -2,7 +2,7 @@
 
 require_once 'src/DAO/BilletDAO.php';
 require_once 'src/DAO/CommentDAO.php';
-require_once 'Vue/Vue.php';
+require_once 'view/Vue.php';
 
 class ControleurBillet {
 
@@ -14,7 +14,7 @@ class ControleurBillet {
         $this->commentaire = new CommentDAO();
     }
 
-    // Affiche les détails sur un billet
+    // Display article detail
     public function billet($idBillet) {
         $billet = $this->billet->getBillet($idBillet);
         $commentaires = $this->commentaire->getCommentaires($idBillet);
@@ -22,7 +22,7 @@ class ControleurBillet {
         $vue->generer(array('billet' => $billet, 'commentaires' => $commentaires));
     }
 
-    // Ajout d'un billet.
+    // Add an article.
     public function poster($titre, $contenu){
         $this->billet->addBillet( $contenu, $titre);
         $billets = $this->billet->getBillets();
@@ -30,14 +30,14 @@ class ControleurBillet {
         $vue->generer(array('billets' => $billets));
     }
 
-    // Afficher edition d'un billet.
+    // Dsiplay article edition.
     public function getPostEdit ($idBillet){
         $post = $this->billet->getBillet($idBillet);
         $vue = new \BlogPSC\Vue ("EditPost");
         $vue->generer(array('contenu' => $post['contenu'], 'titre' => $post['titre'], 'id' => $idBillet));
     }
 
-    // Edition d'un billet.
+    // Edit an article.
     public function setPostEdit ($titre, $contenu, $idBillet){
         $this->billet->updatePost($titre, $contenu, $idBillet);
         $billets = $this->billet->getBillets();
@@ -45,28 +45,28 @@ class ControleurBillet {
         $vue->generer(array('billets' => $billets));
     }
 
-    //  Suppression Billet.
-    public function supprimerBillet ($idBillet){
-        $this->billet->deleteBillet($idBillet);
+    //  Delete article.
+    public function delArticle ($idBillet){
+        $this->billet->deleteArticle($idBillet);
         $billets = $this->billet->getBillets();
-        $vue = new Vue("Accueil");
+        $vue = new \BlogPSC\Vue("Accueil");
         $vue->generer(array('billets' => $billets));
     }
 
-    // Ajouter un commentaire à un billet
-    public function commenter($auteur, $contenu, $idBillet) {
-        $this->commentaire->ajouterCommentaire($auteur, $contenu, $idBillet);
+    // Add a comment.
+    public function comment($auteur, $contenu, $idBillet) {
+        $this->commentaire->addComment($auteur, $contenu, $idBillet);
         $this->billet($idBillet);
     }
 
-    // Afficher edition d'un commentaire.
+    // Display comment edit.
     public function getComEdit ($idCommentaire){
         $content = $this->commentaire->getComInfo($idCommentaire);
         $vue = new \BlogPSC\Vue ("EditCom");
         $vue->generer(array('contenu' => $content['contenu'], 'auteur' => $content['auteur'], 'id' => $idCommentaire));
     }
 
-    // Edition d'un commentaire
+    // Edit a comment.
     public function setComEdit ($auteur, $contenu, $idCommentaire){
         $this->commentaire->updateCom($auteur, $contenu, $idCommentaire);
         $billets = $this->billet->getBillets();
@@ -75,19 +75,25 @@ class ControleurBillet {
 
     }
 
-    // Supprimer un commentaire.
-    public function supprimer ($idCommentaire){
-        $this->commentaire->supprimerCommentaire($idCommentaire);
+    // Delete a comment.
+    public function deleteCom ($idCommentaire){
+        $this->commentaire->deleteComment($idCommentaire);
         $billets = $this->billet->getBillets();
         $vue = new \BlogPSC\Vue("Accueil");
         $vue->generer(array('billets' => $billets));
     }
 
-    // Signaler un commentaire.
-    public function signalCom($idCommentaire){
+    // Signal a comment.
+    public function signalCom($idCommentaire, $idBillet){
         $this->commentaire->incrementIndex($idCommentaire);
+        $billet = $this->billet->getBillet($idBillet);
+        $commentaires = $this->commentaire->getCommentaires($idBillet);
+        $vue = new \BlogPSC\Vue("Billet");
+        $vue->generer(array('billet' => $billet, 'commentaires' => $commentaires));
+
+
     }
-    // Afficher la page editeur de texte.
+    // Display text editor.
     public function gotoEditor (){
         $vue = new \BlogPSC\Vue ("Editor");
         $vue->generer([]);

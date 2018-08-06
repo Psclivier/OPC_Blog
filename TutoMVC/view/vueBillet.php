@@ -39,7 +39,7 @@
 
 <?php if ($_SESSION['rank'] == "user") : ?>
     <!--  signalement d'un commentaire.  -->
-    <p><a href="<?= "index.php?action=signalcom&id=" . $commentaire['id'] ?>" id="signal" class="btn btn-danger">Signaler</a></p>
+    <p><a href="<?= "index.php?action=signalcom&idcom=" . $commentaire['id'] . "&id=" . $billet['id'] ?>" id="signal" class="btn btn-danger">Signaler</a></p>
 <?php endif; ?>
 
 

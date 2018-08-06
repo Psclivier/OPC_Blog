@@ -4,6 +4,7 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="public/style.css" />
         <link href="public/bootstrap.css" rel="stylesheet">
         <script type="text/javascript" src="public/jquery.min.js"></script>
@@ -22,6 +23,7 @@
                     echo "Bonjour " . $_SESSION['nom_utilisateur'];
 
                 }?></p>
+
                 <nav class="navbar navbar-default">
                     <ul class="nav navbar-nav">
                         <li class="nav-item">

@@ -12,7 +12,7 @@ class Vue { // Sert à gérer la génération des vues.
 
     public function __construct($action) {
         // Détermination du nom du fichier vue à partir de l'action
-        $this->fichier = "Vue/vue" . $action . ".php";
+        $this->fichier = "view/vue" . $action . ".php";
     }
 
     // Génère et affiche la vue
@@ -20,7 +20,7 @@ class Vue { // Sert à gérer la génération des vues.
         // Génération de la partie spécifique de la vue
         $contenu = $this->genererFichier($this->fichier, $donnees);
         // Génération du gabarit commun utilisant la partie spécifique
-        $vue = $this->genererFichier('Vue/gabarit.php',
+        $vue = $this->genererFichier('view/gabarit.php',
                 array('titre' => $this->titre, 'contenu' => $contenu));
         // Renvoi de la vue au navigateur
         echo $vue;
@@ -43,5 +43,4 @@ class Vue { // Sert à gérer la génération des vues.
             throw new Exception("Fichier '$fichier' introuvable");
         }
     }
-
 }
