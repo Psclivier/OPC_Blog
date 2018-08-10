@@ -1,14 +1,15 @@
-<?php foreach ($billets as $billet):
+
+<?php foreach ($articles as $article):
 
     ?>
     <article>
         <header>
-            <a href="<?= "index.php?action=billet&id=" . $billet['id'] ?>">
-                <h1 class="titreBillet"><?= $billet['titre'] ?></h1>
+            <a href="<?= "index.php?action=article&id=" . $article->getId(); ?>">
+                <h1 class="articletitle"><?= $article->getTitle(); ?></h1>
             </a>
-            <time><?= $billet['date'] ?></time>
+            <time><?= $article->getDate(); ?></time>
         </header>
-        <p><?= substr($billet['contenu'],0, 500) ?></p>
+        <p><?= substr($article->getContent(),0, 1000) ?></p>
     </article>
     <hr />
 <?php endforeach; ?>

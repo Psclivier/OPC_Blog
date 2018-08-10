@@ -10,7 +10,6 @@
 <p> Créez votre compte en quelques clics </p>
 <div  class="inscription">
     <div class="container">
-
         <form class="form-horizontal"  action="index.php?uc=gestionBlog&action=registration" method="post" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-xs-6">

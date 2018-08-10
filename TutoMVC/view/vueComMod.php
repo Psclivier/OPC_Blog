@@ -9,24 +9,17 @@
 ?>
 
 
-<?php foreach ($commentaires as $commentaire): ?>
+<?php foreach ($comments as $comment): ?>
 <div class="media thumbnail">
-    <p><?= $commentaire['auteur'] ?> dit :</p>
-    <p><?= $commentaire['contenu'] ?></p>
+    <p><?= $comment->getPseudo(); ?> dit :</p>
+    <p><?= $comment->getContent(); ?></p>
 
+    <!-- Formulaire suppression commentaire.-->
+    <p><a href="<?= "index.php?action=supprimer&id=" . $comment->getId(); ?>"id="delete" class="btn btn-danger">Supprimer</a></p>
 
-
-    <!-- Formulaire suppression commentaire.   -->
-    <p><a href="<?= "index.php?action=supprimer&id=" . $commentaire['id'] ?>"id="delete" class="btn btn-danger">Supprimer</a></p>
-
-
-    <!-- édition commentaire.  -->
-    <p><a href="<?= "index.php?action=getcomedit&idcom=" . $commentaire['id'] ?>"id="edit" class="btn btn-warning">Editer</a></p>
+    <!-- édition commentaire.-->
+    <p><a href="<?= "index.php?action=getcomedit&idcom=" . $comment->getId(); ?>"id="edit" class="btn btn-warning">Editer</a></p>
 </div>
-
-
-
-
 <?php endforeach; ?>
 
 

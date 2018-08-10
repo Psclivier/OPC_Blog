@@ -2,38 +2,38 @@
 
 // Analyse la requète entrante pour déterminer l'action à entreprendre.
 
-require_once 'src/controller/ControleurAccueil.php';
-require_once 'src/controller/ControleurBillet.php';
-require_once 'src/controller/ControleurAdmin.php';
-require_once 'src/controller/ControleurLogin.php';
+
+
+
+require_once 'src/controller/FrontController.php';
+require_once 'src/controller/BackController.php';
 require_once 'view/Vue.php';
 require_once 'recaptcha.php';
 
 
 class Routeur {
 
-    private $ctrlAccueil;
-    private $ctrlBillet;
 
     public function __construct() {
-        $this->ctrlAccueil = new ControleurAccueil();
-        $this->ctrlBillet = new ControleurBillet();
-        $this->ctrlLogin = new ControleurLogin();
-        $this->ctrlAdmin = new ControleurAdmin();
+        $this->fcrtl = new \src\controller\FrontController();
+        $this->bctrl = new \src\controller\BackController();
+
+
     }
 
     // Route une requête entrante : exécute l'action associée
     public function routerRequete() {
         try {
             if (isset($_GET['action'])) {
-                if ($_GET['action'] == 'billet') {
-                    $idBillet = intval($this->getParametre($_GET, 'id'));
-                    if ($idBillet != 0) {
-                        $this->ctrlBillet->billet($idBillet);
+                if ($_GET['action'] == 'article') {
+                    $idArticle = intval($this->getParametre($_GET, 'id'));
+                    if ($idArticle != 0) {
+                        $this->fcrtl->article($idArticle);
                     }
                     else
                         throw new Exception("Identifiant de billet non valide");
                 }
+
                 // Post a comment.
                 else if ($_GET['action'] == 'commenter') {
                     $captcha = new Recaptcha('6LeYuGYUAAAAAMl_WLEuka5-EUp5NbRqM_JwQp5K');
@@ -43,7 +43,7 @@ class Routeur {
                         $auteur = $this->getParametre($_POST, 'auteur');
                         $contenu = $this->getParametre($_POST, 'contenu');
                         $idBillet = $this->getParametre($_POST, 'id');
-                        $this->ctrlBillet->comment($auteur, $contenu, $idBillet);
+                        $this->fcrtl->comment($auteur, $contenu, $idBillet);
                     }
 
                 }
@@ -52,75 +52,75 @@ class Routeur {
                     // Poster un Billet.
                     $contenu = $this->getParametre($_POST, 'editeur');
                     $titre = $this->getParametre($_POST, 'titre');
-                    $this->ctrlBillet->poster( $contenu, $titre);
+                    $this->fcrtl->addarticle( $contenu, $titre);
                 }
                 // Display article edit.
                 else if ($_GET['action'] == 'getpostedit'){
                     $idBillet = $this->getParametre($_GET, 'id');
-                    $this->ctrlBillet->getPostEdit($idBillet);
+                    $this->fcrtl->getPostEdit($idBillet);
                 }
                 // Display comment edit.
                 else if ($_GET['action'] == 'getcomedit'){
                     $idCommentaire = $this->getParametre($_GET, 'idcom');
-                    $this->ctrlBillet->getComEdit($idCommentaire);
+                    $this->fcrtl->getComEdit($idCommentaire);
                 }
                 // Edit article.
                 else if ($_GET['action'] == 'setpostedit') {
                     $titre = $this->getParametre($_POST, 'titre');
                     $contenu = $this->getParametre($_POST, 'contenu');
                     $idBillet = $this->getParametre($_POST, 'id');
-                    $this->ctrlBillet->setPostEdit($titre, $contenu, $idBillet);
+                    $this->fcrtl->setPostEdit($titre, $contenu, $idBillet);
                 }
                 // Edit comment.
                 else if ($_GET['action'] == 'setcomedit') {
                     $auteur = $this->getParametre($_POST, 'auteur');
                     $contenu = $this->getParametre($_POST, 'contenu');
                     $idCommentaire = $this->getParametre($_POST, 'id');
-                    $this->ctrlBillet->setComEdit($auteur, $contenu, $idCommentaire);
+                    $this->fcrtl->setComEdit($auteur, $contenu, $idCommentaire);
                 }
                 // Delete an article.
                 else if ($_GET['action'] == 'deleteBil'){
                     // Supprimer Billet.
                     $idBillet = $this->getParametre($_GET, 'id');
-                    $this->ctrlBillet->delArticle($idBillet);
+                    $this->fcrtl->delArticle($idBillet);
                 }
 
                 // Delete a comment.
                 else if ($_GET['action'] == 'supprimer'){
                     // Supprimer commentaire.
                     $idCommentaire = intval($this->getParametre($_GET, 'id'));
-                    $this->ctrlBillet->deleteCom($idCommentaire);
+                    $this->fcrtl->deleteCom($idCommentaire);
 
                 }
 
                 // Display login page.
                 else if ($_GET['action'] == 'connection'){
-                    $this->ctrlLogin->connection();
+                    $this->bctrl->connection();
                 }
                 // Execute connection.
                 else if ($_GET['action'] == 'beloged'){
                     $login = $this->getParametre($_POST, 'login');
                     $password = $this->getParametre($_POST, 'password');
-                    $this->ctrlLogin->beloged($login, $password);
+                    $this->bctrl->beloged($login, $password);
                 }
                 // Execute deconnection.
                 else if ($_GET['action'] == 'logoff') {
-                    $this->ctrlLogin->logOff();
+                    $this->bctrl->logOff();
                 }
                 // Signal a comment.
                 else if ($_GET['action'] == 'signalcom'){
                     $idBillet = $this->getParametre($_GET, 'id');
                     $idCommentaire = $this->getParametre($_GET, 'idcom');
-                    $this->ctrlBillet->signalCom($idCommentaire, $idBillet);
+                    $this->fcrtl->signalCom($idCommentaire, $idBillet);
                 }
                 // Display moderation page.
                 else if ($_GET['action'] == 'moderation'){
-                    $this->ctrlAdmin->moderation();
+                    $this->bctrl->moderation();
                 }
 
                 // Display text editor page.
                 else if ($_GET['action'] == 'gotoEditor') {
-                    $this->ctrlBillet->gotoEditor();
+                    $this->fcrtl->gotoEditor();
                 }
 
                 // Display registration page.
@@ -140,7 +140,7 @@ class Routeur {
             }
 
             else {  // aucune action définie : affichage de l'accueil
-                $this->ctrlAccueil->accueil();
+                $this->fcrtl->home();
             }
         }
         catch (Exception $e) {

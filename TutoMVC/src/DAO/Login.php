@@ -1,3 +1,4 @@
+<?php namespace src\DAO; ?>
 <?php session_start(); ?>
 <?php
 /**
@@ -6,7 +7,6 @@
  * Date: 03/07/2018
  * Time: 10:04
  */
-
 
 
 require_once 'src/DAO/DAO.php';

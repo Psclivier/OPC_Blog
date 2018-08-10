@@ -2,20 +2,36 @@
 /**
  * Created by PhpStorm.
  * User: Paulin
- * Date: 03/07/2018
- * Time: 10:04
+ * Date: 06/08/2018
+ * Time: 16:33
  */
 
+namespace src\controller;
 
+use src\DAO\Login;
+
+require_once 'view/Vue.php';
+require_once 'src/DAO/ArticleDAO.php';
+require_once 'src/DAO/CommentDAO.php';
 require_once 'src/DAO/Login.php';
 
-Class ControleurLogin
-{
-    private $billet;
+class BackController {
+
+    private $article;
+    private $comment;
 
     public function __construct() {
-        $this->billet = new BilletDAO();
+        $this->article = new \src\DAO\ArticleDAO();
+        $this->comment = new \src\DAO\CommentDAO();
     }
+
+    // Display signalised comments.
+    public function moderation(){
+        $comments = $this->comment->getAllCom();
+        $vue = new \BlogPSC\Vue ("ComMod");
+        $vue->generer(array('comments' => $comments));
+    }
+
 
     public function connection()
     {
@@ -26,16 +42,16 @@ Class ControleurLogin
     public function beloged($login, $password){
         $Objlogin = new Login();
         $Objlogin->beloged($login, $password);
-        $billets = $this->billet->getBillets();
+        $articles = $this->article->getArticles();
         $vue = new \BlogPSC\Vue("Accueil");
-        $vue->generer(array('billets' => $billets));
+        $vue->generer(array('articles' => $articles));
     }
     public function logOff(){
         $Objlogin = new Login();
         $Objlogin->logOff();
-        $billets = $this->billet->getBillets();
+        $articles = $this->article->getArticles();
         $vue = new \BlogPSC\Vue("Accueil");
-        $vue->generer(array('billets' => $billets));
+        $vue->generer(array('articles' => $articles));
     }
     public function gotoRegistration(){
         $vue = new \BlogPSC\Vue ("Registration");
@@ -47,10 +63,6 @@ Class ControleurLogin
         $Objlogin->registration($login, $password);
     }
 
+
 }
-
-
-
-
-
 
