@@ -6,16 +6,11 @@
  * Time: 10:27
  */
 
-namespace  src\DAO;
+namespace  App\src\DAO;
 
-use TutoMVC\src\Model\Commentaire;
+use App\src\Model\Comment;
 
-require_once 'src/DAO/DAO.php';
-require_once 'src/model/Commentaire.php';
-
-
-
-class CommentDAO extends \BlogPSC\Database {
+class CommentDAO extends DAO {
 
     // Retrive all comments of an article.
     public function getComments($idBillet) {
@@ -89,7 +84,7 @@ class CommentDAO extends \BlogPSC\Database {
 
     private function buildObject(array $row)
     {
-        $comment = new Commentaire();
+        $comment = new Comment();
         $comment->setId($row['id']);
         $comment->setPseudo($row['auteur']);
         $comment->setContent($row['contenu']);

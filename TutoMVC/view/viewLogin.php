@@ -10,6 +10,7 @@
                     <div class="form-group">
                         <input type="password" class="form-control" name="password" placeholder="Mot de passe">
                     </div>
+                    <div class="g-recaptcha" data-sitekey="6LeYuGYUAAAAADoGM4Jc7Xs77ZMc_g3y6_hWicCG"></div>
                     <button type="submit" class="btn btn-success" value="beloged">Se connecter</button>
                 </div>
             </div>

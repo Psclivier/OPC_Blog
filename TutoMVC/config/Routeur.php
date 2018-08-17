@@ -2,21 +2,20 @@
 
 // Analyse la requète entrante pour déterminer l'action à entreprendre.
 
+namespace App\config;
 
-
-
-require_once 'src/controller/FrontController.php';
-require_once 'src/controller/BackController.php';
-require_once 'view/Vue.php';
-require_once 'recaptcha.php';
-
+use App\src\Model\Recaptcha;
+use App\src\model\View;
+use Exception;
+use App\src\controller\BackController;
+use App\src\controller\FrontController;
 
 class Routeur {
 
 
     public function __construct() {
-        $this->fcrtl = new \src\controller\FrontController();
-        $this->bctrl = new \src\controller\BackController();
+        $this->fcrtl = new FrontController();
+        $this->bctrl = new BackController();
 
 
     }
@@ -125,32 +124,33 @@ class Routeur {
 
                 // Display registration page.
                 else if ($_GET['action'] == 'gotoregistration') {
-                    $this->ctrlLogin->gotoRegistration();
+                    $this->bctrl->gotoRegistration();
                 }
 
                 // Execute registration.
                 else if ($_GET['action'] == 'registration') {
                     $login = $this->getParametre($_POST, 'login');
                     $password = $this->getParametre($_POST, 'password');
-                    $this->ctrlLogin->registration($login, $password);
+                    $this->bctrl->registration($login, $password);
                 }
 
                 else
                     throw new Exception("Action non valide");
             }
 
-            else {  // aucune action définie : affichage de l'accueil
+            else {  // any action : display Home
                 $this->fcrtl->home();
             }
         }
         catch (Exception $e) {
+            var_dump("hello");
             $this->erreur($e->getMessage());
         }
     }
 
     // Display error message.
     private function erreur($msgErreur) {
-        $vue = new \BlogPSC\Vue("Erreur");
+        $vue = new View("Error");
         $vue->generer(array('msgErreur' => $msgErreur));
     }
 

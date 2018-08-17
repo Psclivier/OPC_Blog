@@ -1,14 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Paulin
- * Date: 27/07/2018
- * Time: 12:07
- */
 
-?>
-
-<?php
+namespace App\src\Model;
 
     class Recaptcha{
         private $secret;
@@ -45,4 +37,4 @@
 
         }
     }
-?>
+

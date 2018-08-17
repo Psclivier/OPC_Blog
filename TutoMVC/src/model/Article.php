@@ -1,7 +1,7 @@
 <?php
 
 
-namespace TutoMVC\src\Model;
+namespace App\src\Model;
 
 class Article {
 

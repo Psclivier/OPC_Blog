@@ -6,13 +6,10 @@
  * Time: 10:27
  */
 
-namespace BlogPSC;
+namespace App\src\DAO;
 
-abstract class Database {
+abstract class DAO {
 
-    const DB_HOST ='mysql:host=localhost;dbname=monblog;charset=utf8';
-    const DB_USER ='root';
-    const DB_PASS ='root';
 
     private $bdd;
 
@@ -30,7 +27,7 @@ abstract class Database {
     private function getBdd() {
         if ($this->bdd == null) {
             // Création de la connexion
-            $this->bdd = new \PDO(self::DB_HOST, self::DB_USER, self::DB_PASS,
+            $this->bdd = new \PDO(DB_HOST, DB_USER, DB_PASS,
                 array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION));
         }
         return $this->bdd;

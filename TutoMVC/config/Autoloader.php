@@ -1,6 +1,6 @@
 <?php
 
-namespace TutoMVC\config\Autoloader;
+namespace App\config;
 class Autoloader{
 
     public static function register(){

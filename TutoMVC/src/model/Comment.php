@@ -1,8 +1,8 @@
 <?php
 
-namespace TutoMVC\src\Model;
+namespace App\src\Model;
 
-class Commentaire {
+class Comment {
 
     private $id;
 

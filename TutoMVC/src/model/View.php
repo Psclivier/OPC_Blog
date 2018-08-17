@@ -1,8 +1,8 @@
 <?php
 
-namespace BlogPSC;
+namespace App\src\model;
 
-class Vue { // Sert à gérer la génération des vues.
+class View { // Sert à gérer la génération des vues.
 
     // Nom du fichier associé à la vue
     private $fichier;
@@ -12,7 +12,7 @@ class Vue { // Sert à gérer la génération des vues.
 
     public function __construct($action) {
         // Détermination du nom du fichier vue à partir de l'action
-        $this->fichier = "view/vue" . $action . ".php";
+        $this->fichier = "../view/view" . $action . ".php";
     }
 
     // Génère et affiche la vue
@@ -20,7 +20,7 @@ class Vue { // Sert à gérer la génération des vues.
         // Génération de la partie spécifique de la vue
         $contenu = $this->genererFichier($this->fichier, $donnees);
         // Génération du gabarit commun utilisant la partie spécifique
-        $vue = $this->genererFichier('view/gabarit.php',
+        $vue = $this->genererFichier('../view/gabarit.php',
                 array('titre' => $this->titre, 'contenu' => $contenu));
         // Renvoi de la vue au navigateur
         echo $vue;
@@ -40,7 +40,7 @@ class Vue { // Sert à gérer la génération des vues.
             return ob_get_clean();
         }
         else {
-            throw new Exception("Fichier '$fichier' introuvable");
+            throw new \Exception("Fichier '$fichier' introuvable");
         }
     }
 }

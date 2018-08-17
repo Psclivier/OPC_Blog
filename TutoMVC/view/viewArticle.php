@@ -1,4 +1,7 @@
-<?php $this->titre = "Mon Blog - " . $article->getTitle(); ?>
+
+<?php session_start();
+
+$this->titre = "Mon Blog - " . $article->getTitle(); ?>
 
 <article id="billet">
     <header>
@@ -28,15 +31,15 @@
 
 <?php if ($_SESSION['rank'] == "admin") : ?>
     <!-- suppression commentaire.   -->
-    <p><a href="<?= "index.php?action=supprimer&id=" . $comment->getId(); ?>" id="deletecom" class="btn btn-danger">Supprimer</a></p>
+    <p><a href="<?= "index.php?action=supprimer&id=" . $comment->getId(); ?>" id="deletecom" class="button">Supprimer</a></p>
 
     <!-- édition commentaire.  -->
-    <p><a href="<?= "index.php?action=getcomedit&idcom=" . $comment->getId(); ?>"id="editcom" class="btn btn-warning">Editer</a></p>
+    <p><a href="<?= "index.php?action=getcomedit&idcom=" . $comment->getId(); ?>"id="editcom" class="button">Editer</a></p>
     <?php endif; ?>
 
 <?php if ($_SESSION['rank'] == "user") : ?>
     <!--  signalement d'un commentaire.  -->
-    <p><a href="<?= "index.php?action=signalcom&idcom=" . $comment->getId() . "&id=" . $article->getId(); ?>" id="signal" class="btn btn-danger">Signaler</a></p>
+    <p><a href="<?= "index.php?action=signalcom&idcom=" . $comment->getId() . "&id=" . $article->getId(); ?>" id="signal" class="button">Signaler</a></p>
 <?php endif; ?>
 
 
@@ -44,7 +47,6 @@
 <?php endforeach; ?>
 <hr />
 <?php if (isset($_SESSION['rank'])) : ?>
-
 <form method="post" action="index.php?action=commenter">
     <input id="auteur" name="auteur" type="text" placeholder="Votre pseudo" 
            required /><br />
@@ -52,10 +54,6 @@
               placeholder="Votre commentaire" required></textarea><br />
     <input type="hidden" name="id" value="<?= $article->getId(); ?>" />
     <div class="g-recaptcha" data-sitekey="6LeYuGYUAAAAADoGM4Jc7Xs77ZMc_g3y6_hWicCG"></div>
-    <input type="submit" class="btn-info" value="Commenter" />
+    <input type="submit" class="button" value="Commenter" />
 </form>
-
-
-
-
 <?php endif; ?>

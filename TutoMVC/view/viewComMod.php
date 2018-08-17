@@ -1,15 +1,7 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Paulin
- * Date: 14/07/2018
- * Time: 10:05
- */
-
-?>
+<?php session_start();
 
 
-<?php foreach ($comments as $comment): ?>
+ foreach ($comments as $comment): ?>
 <div class="media thumbnail">
     <p><?= $comment->getPseudo(); ?> dit :</p>
     <p><?= $comment->getContent(); ?></p>

@@ -6,27 +6,42 @@
  * Time: 10:27
  */
 
-namespace src\DAO;
+namespace App\src\DAO;
 
-require_once 'src/DAO/DAO.php';
-require_once 'src/model/Article.php';
+use App\src\Model\Article;
+use Exception;
 
-use TutoMVC\src\Model\Article;
-
-class ArticleDAO extends \BlogPSC\Database{
+class ArticleDAO extends DAO {
 
     public function getArticles()
     {
+        $sql = 'select count(ART_ID) as nbART from T_article';
+        $req = $this->executerRequete($sql);
+        $data = $req->fetch();
+
+
+        $nbART = $data['nbART'];
+        $perPage = 4;
+        $nbPage = ceil($nbART/$perPage);
+
+        if(isset($_GET['p']) && $_GET['p']>0 && $_GET['p']<=$nbPage){
+            $cPage = $_GET['p'];
+        }
+        else{
+            $cPage = 1;
+        }
+
         $sql = 'select ART_ID as id, ART_DATE as date,'
             . ' ART_title as title, ART_CONTENT as CONTENT from T_article'
-            . ' order by ART_ID desc';
+            . ' order by ART_ID desc limit '.(($cPage-1)*$perPage).', '.$perPage.'';
         $result = $this->executerRequete($sql);
         $articles = [];
         foreach ($result as $row) {
             $articleId = $row['id'];
             $articles[$articleId] = $this->buildObject($row);
         }
-        return $articles;
+        $data = [$articles, $nbPage];
+        return $data;
     }
 
     // Récupère les infos d'un article.
@@ -64,15 +79,8 @@ class ArticleDAO extends \BlogPSC\Database{
     public function deleteArticle($idarticle){
         $sql = 'DELETE FROM T_comment WHERE ART_ID = ?';
         $this->executerRequete($sql, array($idarticle));
-        $sql1 = 'DELETE FROM T_article WHERE ART_ID = ?';
-        $this->executerRequete($sql1, array($idarticle));
-
-//        $sql = 'DELETE c, a FROM T_article a INNER JOIN T_COMMENTAIRE c ON c.ART_ID = a.ART_ID WHERE a.ART_ID = ?';
-//        $sql = 'DELETE c, a,'
-//             . 'FROM t_article a'
-//             . 'INNER JOIN t_commentaire c'
-//             . ' ON c.ART_id = a.ART_id'
-//             . ' WHERE a.ART_id = ?';
+        $sql = 'DELETE FROM T_article WHERE ART_ID = ?';
+        $this->executerRequete($sql, array($idarticle));
     }
 
 

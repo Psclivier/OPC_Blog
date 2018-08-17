@@ -1,17 +1,8 @@
-<?php namespace src\DAO; ?>
-<?php session_start(); ?>
 <?php
-/**
- * Created by PhpStorm.
- * User: Paulin
- * Date: 03/07/2018
- * Time: 10:04
- */
 
-
-require_once 'src/DAO/DAO.php';
-
-class Login extends \BlogPSC\Database
+namespace App\src\DAO;
+session_start();
+class Login extends DAO
 {
     // Vérification des informations rentrées dans les champs.
     public function beloged($login, $password)
@@ -41,9 +32,9 @@ class Login extends \BlogPSC\Database
 
         // Vérification des log avec la bdd.
 
-            $sql = 'SELECT id, login, pssword, rank FROM users WHERE login=? AND pssword=?';
-            $confirmation = $this->executerRequete($sql, array($loginsecure, $password_hash));
-            $resultat = $confirmation->fetch();
+        $sql = 'SELECT id, login, pssword, rank FROM users WHERE login=? AND pssword=?';
+        $confirmation = $this->executerRequete($sql, array($loginsecure, $password_hash));
+        $resultat = $confirmation->fetch();
 
 
         if ($resultat){

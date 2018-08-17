@@ -1,66 +1,60 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Paulin
- * Date: 06/08/2018
- * Time: 16:33
- */
 
-namespace src\controller;
+namespace App\src\controller;
 
-use src\DAO\Login;
-
-require_once 'view/Vue.php';
-require_once 'src/DAO/ArticleDAO.php';
-require_once 'src/DAO/CommentDAO.php';
-require_once 'src/DAO/Login.php';
+use App\src\DAO\ArticleDAO;
+use App\src\DAO\CommentDAO;
+use App\src\DAO\Login;
+use App\src\model\View;
 
 class BackController {
 
     private $article;
     private $comment;
+    private $fctrl;
 
     public function __construct() {
-        $this->article = new \src\DAO\ArticleDAO();
-        $this->comment = new \src\DAO\CommentDAO();
+        $this->article = new ArticleDAO();
+        $this->comment = new CommentDAO();
+        $this->fctrl = new FrontController();
     }
 
     // Display signalised comments.
     public function moderation(){
         $comments = $this->comment->getAllCom();
-        $vue = new \BlogPSC\Vue ("ComMod");
+        $vue = new View("ComMod");
         $vue->generer(array('comments' => $comments));
     }
 
 
     public function connection()
     {
-        $vue = new \BlogPSC\Vue ("Login");
+        $vue = new View("Login");
         $vue->generer([]);
     }
 
     public function beloged($login, $password){
         $Objlogin = new Login();
         $Objlogin->beloged($login, $password);
-        $articles = $this->article->getArticles();
-        $vue = new \BlogPSC\Vue("Accueil");
-        $vue->generer(array('articles' => $articles));
+        $this->fctrl->home();
     }
     public function logOff(){
         $Objlogin = new Login();
         $Objlogin->logOff();
-        $articles = $this->article->getArticles();
-        $vue = new \BlogPSC\Vue("Accueil");
-        $vue->generer(array('articles' => $articles));
+        $this->fctrl->home();
+
     }
     public function gotoRegistration(){
-        $vue = new \BlogPSC\Vue ("Registration");
+        $vue = new View("Registration");
         $vue->generer([]);
     }
 
     public  function registration($login, $password){
         $Objlogin = new Login();
         $Objlogin->registration($login, $password);
+        $articles = $this->article->getArticles();
+        $vue = new View("Home");
+        $vue->generer(array('articles' => $articles));
     }
 
 
