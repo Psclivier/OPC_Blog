@@ -14,8 +14,8 @@ class CommentDAO extends DAO {
 
     // Retrive all comments of an article.
     public function getComments($idBillet) {
-        $sql = 'select COM_ID as id, COM_DATE as date,'
-            . ' COM_AUTEUR as auteur, COM_CONTENU as contenu from T_COMMENT'
+        $sql = 'select com_id as id, com_date as date,'
+            . ' com_auteur as auteur, com_content as contenu from comment'
             . ' where ART_ID=?';
         $result = $this->executerRequete($sql, array($idBillet));
         $comments = [];
@@ -29,8 +29,8 @@ class CommentDAO extends DAO {
     // Retrive all comments.
     public function getAllCom()
     {
-        $sql = 'select COM_ID as id, COM_DATE as date,'
-            . ' COM_AUTEUR as auteur, COM_CONTENU as contenu from T_COMMENT'
+        $sql = 'select com_id as id, com_date as date,'
+            . ' com_auteur as auteur, com_content as contenu from comment'
             . ' where flag= "true" ';
         $result = $this->executerRequete($sql);
         $comments = [];
@@ -43,15 +43,15 @@ class CommentDAO extends DAO {
 
 
     public function getComInfo ($idCommentaire){
-        $sql = 'select COM_ID as id, COM_DATE as date,'
-            . ' COM_AUTEUR as auteur, COM_CONTENU as contenu from T_COMMENT'
-            . ' where COM_ID=?';
+        $sql = 'select com_id as id, com_date as date,'
+            . ' com_auteur as auteur, com_content as contenu from comment'
+            . ' where com_id=?';
         $commentaires = $this->executerRequete($sql, array($idCommentaire));
         return $commentaires->fetch();
     }
     // Add a comment.
     public function addComment($auteur, $contenu, $idBillet) {
-        $sql = 'INSERT INTO T_COMMENT(COM_DATE, COM_AUTEUR, COM_CONTENU, ART_ID)'
+        $sql = 'INSERT INTO comment(com_date, com_auteur, com_content, ART_ID)'
             . ' VALUES(?, ?, ?, ?)';
         $date = date(DATE_W3C);  // Récupère la date courante
         $this->executerRequete($sql, array($date, $auteur, $contenu, $idBillet));
@@ -59,26 +59,26 @@ class CommentDAO extends DAO {
 
     // Delete a comment.
     public function deleteComment($idCommentaire){
-        $sql = 'DELETE FROM T_COMMENT WHERE COM_ID = ?';
+        $sql = 'DELETE FROM comment WHERE com_id = ?';
         $this->executerRequete($sql, array($idCommentaire));
     }
 
     // Update a comment.
     public function updateCom($auteur, $contenu, $idCommentaire){
-        $sql ='UPDATE T_COMMENT SET COM_AUTEUR = ?, COM_CONTENU = ?, flag = "false" WHERE COM_ID = ?';
+        $sql ='UPDATE comment SET com_auteur = ?, com_content = ?, flag = "false" WHERE com_id = ?';
         $this->executerRequete($sql, array( $auteur, $contenu, $idCommentaire));
     }
 
     // Signal a comment.
     public function incrementIndex($idCommentaire){
-        $sql ='UPDATE T_COMMENT SET flag = "true" WHERE COM_ID = ?';
+        $sql ='UPDATE comment SET flag = "true" WHERE com_id = ?';
         $this->executerRequete($sql, array($idCommentaire));
         echo "<script>alert('Ce commentaire a été signalé.');</script>";
     }
 
     // Take off  signal.
     public function takeOffFlag($idCommentaire){
-        $sql = 'UPDATE T_COMMENT SET flag = "false" WHERE COM_ID = ?';
+        $sql = 'UPDATE comment SET flag = "false" WHERE com_id = ?';
         $this->executerRequete($sql, array($idCommentaire));
     }
 

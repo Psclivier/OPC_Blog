@@ -13,10 +13,10 @@ $this->titre = "Mon Blog - " . $article->getTitle(); ?>
 
 <?php if ($_SESSION['rank'] == "admin") : ?>
     <!--  suppression billet.-->
-    <p><a href="<?= "index.php?action=deleteBil&id=" . $article->getId(); ?>" id="delete" class="btn btn-danger">Supprimer</a></p>
+    <p><a href="<?= "index.php?action=deleteBil&id=" . $article->getId(); ?>" id="delete" class="button">Supprimer</a></p>
 
     <!-- édition article.  -->
-    <p><a href="<?= "index.php?action=getpostedit&id=" . $article->getId();?>"id="edit" class="btn btn-warning">Editer</a></p>
+    <p><a href="<?= "index.php?action=getpostedit&id=" . $article->getId();?>"id="edit" class="button">Editer</a></p>
 <?php endif; ?>
 </article>
 <hr />

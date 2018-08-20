@@ -1,11 +1,5 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Paulin
- * Date: 11/07/2018
- * Time: 10:16
- */
-?>
+<?php session_start();
+if ($_SESSION['rank'] == "admin") : ?>
 <form method="post" action="index.php?action=setcomedit">
     <input id="auteur" name="auteur" type="text" value=<?= $auteur ?>
            required /><br />
@@ -14,3 +8,4 @@
     <input type="hidden" name="id" value="<?= $id ?>" />
     <input type="submit" class="btn-info" value="Mettre à jour" />
 </form>
+<?php endif; ?>

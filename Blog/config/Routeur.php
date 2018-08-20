@@ -35,15 +35,11 @@ class Routeur {
 
                 // Post a comment.
                 else if ($_GET['action'] == 'commenter') {
-                    $captcha = new Recaptcha('6LeYuGYUAAAAAMl_WLEuka5-EUp5NbRqM_JwQp5K');
-                    if ($captcha->checkCode($_POST['g-recaptcha-response']) === false) {
-                        throw new Exception("Captcha non valide");
-                    } else {
                         $auteur = $this->getParametre($_POST, 'auteur');
                         $contenu = $this->getParametre($_POST, 'contenu');
                         $idBillet = $this->getParametre($_POST, 'id');
                         $this->fcrtl->comment($auteur, $contenu, $idBillet);
-                    }
+
 
                 }
                 // Post an article.

@@ -1,7 +1,7 @@
 <?php
 
 
-require '../config/dev.php';
+require '../config/prod.php';
 require '../config/Autoloader.php';
 \App\config\Autoloader::register();
 

@@ -322,9 +322,6 @@ input, select, textarea {
 		border-bottom-color: #eeeeee;
 	}
 
-	.g-recaptcha{
-		height: 50px;
-	}
 /* Row */
 
 	.row {
@@ -2168,6 +2165,7 @@ input, select, textarea {
 
 		@media screen and (max-width: 980px) {
 
+
 			input[type="submit"],
 			input[type="reset"],
 			input[type="button"],
@@ -2239,6 +2237,24 @@ input, select, textarea {
 			.button.primary:hover {
 				background-color: #18bfef;
 			}
+
+@media screen and (min-width: 980px) {
+
+    #editcom {
+        position: relative;
+        left: 17%;
+        bottom: 6.2em;
+    }
+
+    #edit{
+        position: relative;
+        left: 17%;
+        bottom: 6.2em;
+    }
+}
+
+
+
 
 /* Form */
 
@@ -3287,7 +3303,7 @@ input, select, textarea {
 		cursor: default;
 		text-align: center;
 		z-index: 1;
-		min-height: 85vh;
+		min-height: 10vh;
 	}
 
 		#intro input, #intro select, #intro textarea {

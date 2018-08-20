@@ -32,7 +32,7 @@ class Login extends DAO
 
         // Vérification des log avec la bdd.
 
-        $sql = 'SELECT id, login, pssword, rank FROM users WHERE login=? AND pssword=?';
+        $sql = 'SELECT id, login, pssword, rank FROM user WHERE login=? AND pssword=?';
         $confirmation = $this->executerRequete($sql, array($loginsecure, $password_hash));
         $resultat = $confirmation->fetch();
 
@@ -59,7 +59,7 @@ class Login extends DAO
     public function registration($login, $password){
 
         $password_hash = sha1($password);
-        $sql = 'INSERT INTO users(login,pssword) VALUES (?,?)';
+        $sql = 'INSERT INTO user(login,pssword) VALUES (?,?)';
         $this->executerRequete($sql, array($login, $password_hash));
     }
 

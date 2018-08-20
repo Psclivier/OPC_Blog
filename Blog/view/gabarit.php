@@ -63,25 +63,12 @@
     <!-- Footer -->
     <footer id="footer">
         <section>
-            <form method="post" action="#">
-                <div class="fields">
-                    <div class="field">
-                        <label for="name">Name</label>
-                        <input type="text" name="name" id="name" />
-                    </div>
-                    <div class="field">
-                        <label for="email">Email</label>
-                        <input type="text" name="email" id="email" />
-                    </div>
-                    <div class="field">
-                        <label for="message">Message</label>
-                        <textarea name="message" id="message" rows="3"></textarea>
-                    </div>
-                </div>
-                <ul class="actions">
-                    <li><input type="submit" value="Send Message" /></li>
-                </ul>
-            </form>
+            <p>Ce blog a été réalisé avec:<br />
+                HTML<br />
+                PHP 7.1.5<br />
+                CSS<br />
+                Design: <a href="https://html5up.net">HTML5 UP</a>
+            </p>
         </section>
         <section class="split contact">
             <section class="alt">
@@ -90,20 +77,12 @@
                     Nashville, TN 00000-0000</p>
             </section>
             <section>
-                <h3>Phone</h3>
-                <p><a href="#">(000) 000-0000</a></p>
-            </section>
-            <section>
                 <h3>Email</h3>
-                <p><a href="#">info@untitled.tld</a></p>
+                <p><a href="#">jeanforteroche@untitled.tld</a></p>
             </section>
         </section>
     </footer>
 
-    <!-- Copyright -->
-    <div id="copyright">
-        <ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
-    </div>
 
             </p>
         </div>
