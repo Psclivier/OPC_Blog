@@ -1,11 +1,12 @@
 <?php
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 require '../config/prod.php';
-require '../config/Autoloader.php';
-\App\config\Autoloader::register();
+require '../vendor/autoload.php';
 
 
-$routeur = new \App\config\Routeur();
+$routeur = new \App\src\config\Routeur();
 $routeur->routerRequete();
 

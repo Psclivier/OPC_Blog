@@ -23,6 +23,13 @@ class FrontController {
         $vue->generer(array('data' => $data));
     }
 
+//
+//    public function home() {
+//
+//        $vue = new View("Home");
+//        $vue->generer([]);
+//    }
+
 
     // Display article detail
     public function article($idArticle) {

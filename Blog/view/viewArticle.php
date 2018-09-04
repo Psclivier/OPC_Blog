@@ -1,6 +1,5 @@
 
 <?php session_start();
-
 $this->titre = "Mon Blog - " . $article->getTitle(); ?>
 
 <article id="billet">
@@ -11,7 +10,7 @@ $this->titre = "Mon Blog - " . $article->getTitle(); ?>
     <p><?= $article->getContent(); ?></p>
 
 
-<?php if ($_SESSION['rank'] == "admin") : ?>
+<?php if (isset($_SESSION['rank']) && ($_SESSION['rank'] == "admin")) : ?>
     <!--  suppression billet.-->
     <p><a href="<?= "index.php?action=deleteBil&id=" . $article->getId(); ?>" id="delete" class="button">Supprimer</a></p>
 
@@ -29,7 +28,7 @@ $this->titre = "Mon Blog - " . $article->getTitle(); ?>
     <p><?= $comment->getPseudo(); ?> dit :</p>
     <p><?= $comment->getContent(); ?></p>
 
-<?php if ($_SESSION['rank'] == "admin") : ?>
+<?php if (isset($_SESSION['rank']) && ($_SESSION['rank'] == "admin")) : ?>
     <!-- suppression commentaire.   -->
     <p><a href="<?= "index.php?action=supprimer&id=" . $comment->getId(); ?>" id="deletecom" class="button">Supprimer</a></p>
 
@@ -37,7 +36,7 @@ $this->titre = "Mon Blog - " . $article->getTitle(); ?>
     <p><a href="<?= "index.php?action=getcomedit&idcom=" . $comment->getId(); ?>"id="editcom" class="button">Editer</a></p>
     <?php endif; ?>
 
-<?php if ($_SESSION['rank'] == "user") : ?>
+<?php if (isset($_SESSION['rank']) && ($_SESSION['rank'] == "user")) : ?>
     <!--  signalement d'un commentaire.  -->
     <p><a href="<?= "index.php?action=signalcom&idcom=" . $comment->getId() . "&id=" . $article->getId(); ?>" id="signal" class="button">Signaler</a></p>
 <?php endif; ?>

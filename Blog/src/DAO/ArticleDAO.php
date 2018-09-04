@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Paulin
- * Date: 28/07/2018
- * Time: 10:27
- */
 
 namespace App\src\DAO;
 
@@ -32,7 +26,7 @@ class ArticleDAO extends DAO {
         }
 
         $sql = 'select art_id as id, art_date as date,'
-            . ' art_title as title, art_content as CONTENT from article'
+            . ' art_title as title, art_content as content from article'
             . ' order by art_id desc limit '.(($cPage-1)*$perPage).', '.$perPage.'';
         $result = $this->executerRequete($sql);
         $articles = [];
@@ -40,15 +34,41 @@ class ArticleDAO extends DAO {
             $articleId = $row['id'];
             $articles[$articleId] = $this->buildObject($row);
         }
-        $data = [$articles, $nbPage];
+        $data = [$articles, $nbPage, $cPage];
         return $data;
     }
+
+//    public function getArticles()
+//    {
+//        $sql = 'select art_id as id, art_date as date,'
+//            . 'art_title as title, art_content as content from article'
+//            . ' order by art_id desc';
+//        $result = $this->executerRequete($sql);
+//        $articles = [];
+//        foreach ($result as $row) {
+//            $articleId = $row['id'];
+//            $articles[$articleId] = $this->buildObject($row);
+//        }
+//        $data = [$articles];
+//        return $data;
+//    }
+
+//    public function getArticles()
+//    {
+//        $sql = 'select art_id as id, art_date as date,'
+//            . ' art_title as title, art_content as content from article'
+//            . ' order by art_id desc';
+//        $articles = $this->executerRequete($sql);
+//        return $articles;
+//    }
+
+
 
     // Récupère les infos d'un article.
     public function getArticle($idarticle)
     {
         $sql = 'select art_id as id, art_date as date,'
-            . ' art_title as title, art_content as CONTENT from article'
+            . 'art_title as title, art_content as content from article'
             . ' where art_id=?';
         $article = $this->executerRequete($sql, array($idarticle));
         $row = $article->fetch();
@@ -89,7 +109,7 @@ class ArticleDAO extends DAO {
         $article = new Article();
         $article->setId($row['id']);
         $article->setTitle($row['title']);
-        $article->setContent($row['CONTENT']);
+        $article->setContent($row['content']);
         $article->setDate($row['date']);
         return $article;
     }

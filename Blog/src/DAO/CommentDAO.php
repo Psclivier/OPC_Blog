@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Paulin
- * Date: 28/07/2018
- * Time: 10:27
- */
 
 namespace  App\src\DAO;
 

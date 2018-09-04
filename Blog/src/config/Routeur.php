@@ -2,9 +2,9 @@
 
 // Analyse la requète entrante pour déterminer l'action à entreprendre.
 
-namespace App\config;
+namespace App\src\config;
 
-use App\src\Model\Recaptcha;
+
 use App\src\model\View;
 use Exception;
 use App\src\controller\BackController;
@@ -12,12 +12,9 @@ use App\src\controller\FrontController;
 
 class Routeur {
 
-
     public function __construct() {
         $this->fcrtl = new FrontController();
         $this->bctrl = new BackController();
-
-
     }
 
     // Route une requête entrante : exécute l'action associée
@@ -39,7 +36,6 @@ class Routeur {
                         $contenu = $this->getParametre($_POST, 'contenu');
                         $idBillet = $this->getParametre($_POST, 'id');
                         $this->fcrtl->comment($auteur, $contenu, $idBillet);
-
 
                 }
                 // Post an article.

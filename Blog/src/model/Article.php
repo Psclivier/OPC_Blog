@@ -11,8 +11,6 @@ class Article {
 
     private $content;
 
-    private $author;
-
     private $date;
 
     /**

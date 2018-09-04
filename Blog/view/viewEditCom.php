@@ -1,5 +1,5 @@
 <?php session_start();
-if ($_SESSION['rank'] == "admin") : ?>
+if (isset($_SESSION['rank']) && ($_SESSION['rank'] == "admin")) : ?>
 <form method="post" action="index.php?action=setcomedit">
     <input id="auteur" name="auteur" type="text" value=<?= $auteur ?>
            required /><br />

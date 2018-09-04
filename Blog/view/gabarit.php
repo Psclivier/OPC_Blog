@@ -1,3 +1,4 @@
+
 <?php session_start();
 ?>
 <!doctype html>
@@ -5,8 +6,6 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width">
-<!--        <link rel="stylesheet" href="../public/style.css" />-->
-<!--        <link href="../public/bootstrap.css" rel="stylesheet">-->
     <link rel="stylesheet" href="../public/assets/css/main.css"/>
     <noscript>
         <link rel="stylesheet" href="../public/assets/css/noscript.css"/>
@@ -24,16 +23,14 @@
             <li><a href="#header" class="button icon solo fa-arrow-down scrolly">Continue</a></li>
         </ul>
     </div>
-
     <header>
         <div id="header">
             <h2 id="titreBlog">Le nouveau roman de Jean Forteroche</h2></a>
         </div>
-
         <nav id="nav">
             <ul class="links">
                 <li class="active"><a href="index.php">Accueil</a></li>
-                <?php if ($_SESSION['rank'] == "admin") : ?>
+                <?php if (isset($_SESSION['rank']) && ($_SESSION['rank'] == "admin")) : ?>
                 <li><a href="index.php?action=gotoEditor">Ecrire un Article</a></li>
                 <li><a href="index.php?action=moderation">Moderation</a></li>
                 <?php endif; ?>
@@ -54,9 +51,7 @@
     </header>
     <!-- #contenu -->
     <div id="main">
-
-            <?= $contenu ?>
-
+        <?= $contenu ?>
     </div>
 
 
@@ -91,7 +86,6 @@
 <script type="text/javascript" src="../public/jquery.min.js"></script>
 <script type="text/javascript" src="../public/plugin/tinymce/tinymce.min.js"></script>
 <script type="text/javascript" src="../public/plugin/tinymce/initmce.js"></script>
-<script src='../public/https://www.google.com/recaptcha/api.js'></script>
 <script src="../public/assets/js/jquery.min.js"></script>
 <script src="../public/assets/js/jquery.scrollex.min.js"></script>
 <script src="../public/assets/js/jquery.scrolly.min.js"></script>

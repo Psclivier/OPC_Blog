@@ -1,6 +1,6 @@
 <?php session_start();
 
-if ($_SESSION['rank'] == "admin") :
+if (isset($_SESSION['rank']) && ($_SESSION['rank'] == "admin")) :
  foreach ($comments as $comment): ?>
 <div class="media thumbnail">
     <p><?= $comment->getPseudo(); ?> dit :</p>
