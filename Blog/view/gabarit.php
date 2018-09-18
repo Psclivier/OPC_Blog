@@ -1,6 +1,3 @@
-
-<?php session_start();
-?>
 <!doctype html>
 <html lang="fr">
 <head>
@@ -49,7 +46,7 @@
             </ul>
         </nav>
     </header>
-    <!-- #contenu -->
+    <!-- contenu -->
     <div id="main">
         <?= $contenu ?>
     </div>

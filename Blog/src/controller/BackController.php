@@ -1,11 +1,11 @@
 <?php
 
-namespace App\src\controller;
+namespace App\src\Controller;
 
 use App\src\DAO\ArticleDAO;
 use App\src\DAO\CommentDAO;
 use App\src\DAO\Login;
-use App\src\model\View;
+use App\src\Model\View;
 
 class BackController {
 
@@ -17,6 +17,7 @@ class BackController {
         $this->article = new ArticleDAO();
         $this->comment = new CommentDAO();
         $this->fctrl = new FrontController();
+        session_start();
     }
     // Display signalised comments.
     public function moderation(){
@@ -44,12 +45,10 @@ class BackController {
         $vue->generer([]);
     }
 
-    public  function registration($login, $password){
+    public  function registration($login, $password,$confirmpwd){
         $Objlogin = new Login();
-        $Objlogin->registration($login, $password);
-        $articles = $this->article->getArticles();
-        $vue = new View("Home");
-        $vue->generer(array('articles' => $articles));
+        $Objlogin->registration($login, $password,$confirmpwd);
+        $this->fctrl->home();
     }
 
 

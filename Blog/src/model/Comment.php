@@ -10,6 +10,8 @@ class Comment {
 
     private $content;
 
+    private $date;
+
     /**
      * @return mixed
      */
@@ -56,6 +58,22 @@ class Comment {
     public function setContent($content)
     {
         $this->content = $content;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * @param mixed $date
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
     }
 
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\src\model;
+namespace App\src\Model;
 
 class View { // Sert à gérer la génération des vues.
 
@@ -18,16 +18,16 @@ class View { // Sert à gérer la génération des vues.
     // Génère et affiche la vue
     public function generer($donnees) {
         // Génération de la partie spécifique de la vue
-        $contenu = $this->genererFichier($this->fichier, $donnees);
+        $contenu = $this->generateFile($this->fichier, $donnees);
         // Génération du gabarit commun utilisant la partie spécifique
-        $vue = $this->genererFichier('../view/gabarit.php',
+        $vue = $this->generateFile('../view/gabarit.php',
                 array('titre' => $this->titre, 'contenu' => $contenu));
         // Renvoi de la vue au navigateur
         echo $vue;
     }
 
     // Génère un fichier vue et renvoie le résultat produit
-    private function genererFichier($fichier, $donnees) {
+    private function generateFile($fichier, $donnees) {
         if (file_exists($fichier)) {
             // Rend les éléments du tableau $donnees accessibles dans la vue
             extract($donnees);

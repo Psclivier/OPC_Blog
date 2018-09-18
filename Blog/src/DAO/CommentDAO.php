@@ -31,8 +31,8 @@ class CommentDAO extends DAO {
         foreach ($result as $row) {
             $commentId = $row['id'];
             $comments[$commentId] = $this->buildObject($row);
-            return $comments;
         }
+        return $comments;
     }
 
 
@@ -40,9 +40,17 @@ class CommentDAO extends DAO {
         $sql = 'select com_id as id, com_date as date,'
             . ' com_auteur as auteur, com_content as contenu from comment'
             . ' where com_id=?';
-        $commentaires = $this->executerRequete($sql, array($idCommentaire));
-        return $commentaires->fetch();
+        $comment = $this->executerRequete($sql, array($idCommentaire));
+        $row = $comment->fetch();
+        if ($row) {
+            return $this->buildObject($row);
+
+        }else {
+            throw new Exception("Aucun commentaire ne correspond à cet l'identifiant");
+        }
     }
+
+
     // Add a comment.
     public function addComment($auteur, $contenu, $idBillet) {
         $sql = 'INSERT INTO comment(com_date, com_auteur, com_content, ART_ID)'
@@ -67,7 +75,7 @@ class CommentDAO extends DAO {
     public function incrementIndex($idCommentaire){
         $sql ='UPDATE comment SET flag = "true" WHERE com_id = ?';
         $this->executerRequete($sql, array($idCommentaire));
-        echo "<script>alert('Ce commentaire a été signalé.');</script>";
+        throw  new \Exception('Ce commentaire a été signalé.');
     }
 
     // Take off  signal.
@@ -82,6 +90,8 @@ class CommentDAO extends DAO {
         $comment->setId($row['id']);
         $comment->setPseudo($row['auteur']);
         $comment->setContent($row['contenu']);
+        $comment->setDate($row['date']);
+
         return $comment;
     }
 

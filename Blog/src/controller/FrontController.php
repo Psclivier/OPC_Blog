@@ -1,10 +1,10 @@
 <?php
 
-namespace App\src\controller;
+namespace App\src\Controller;
 
 use App\src\DAO\ArticleDAO;
 use App\src\DAO\CommentDAO;
-use App\src\model\View;
+use App\src\Model\View;
 
 class FrontController {
 
@@ -22,14 +22,6 @@ class FrontController {
         $vue = new View("Home");
         $vue->generer(array('data' => $data));
     }
-
-//
-//    public function home() {
-//
-//        $vue = new View("Home");
-//        $vue->generer([]);
-//    }
-
 
     // Display article detail
     public function article($idArticle) {
@@ -85,9 +77,9 @@ class FrontController {
 
     // Display comment edit.
     public function getComEdit ($idCommentaire){
-        $content = $this->comment->getComInfo($idCommentaire);
+        $comment = $this->comment->getComInfo($idCommentaire);
         $vue = new View("EditCom");
-        $vue->generer(array('contenu' => $content['contenu'], 'auteur' => $content['auteur'], 'id' => $idCommentaire));
+        $vue->generer(array('comment' => $comment));
     }
 
     // Edit a comment.

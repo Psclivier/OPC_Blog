@@ -1,29 +1,27 @@
 <?php
-
 namespace App\src\DAO;
-session_start();
 class Login extends DAO
 {
+    function secureinput($data)
+    {
+        $data = trim($data); // Supprime les espaces
+        $data = stripslashes($data); // Supprime les antislashe
+        $data = htmlspecialchars($data); // Bloque les injections de code.
+        return $data;
+    }
+
     // Vérification des informations rentrées dans les champs.
     public function beloged($login, $password)
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-            function secureinput($data)
-            {
-                $data = trim($data); // Supprime les espaces
-                $data = stripslashes($data); // Supprime les antislashe
-                $data = htmlspecialchars($data); // Bloque les injections de code.
-                return $data;
-            }
             if (empty($login)){
                 throw new Exception("Nom d'utilisateur obligatoire");
             }
-            else $loginsecure = secureinput ($login);
+            else $loginsecure = $this->secureinput($login);
 
             if (empty($password)) {
                 throw new Exception("Mot de passe obligatoire.");
-
 
             } else {
                 $password_hash= sha1($password);
@@ -46,24 +44,28 @@ class Login extends DAO
                 $_SESSION['rank'] = $resultat['rank'];
             }
 
-            echo  "Vous êtes connecté" ;
-
+            throw new \Exception("Vous êtes connecté");
 
         }else
         {
-            echo "Mot de passe ou nom d'utilisateur est éronné ";
-
+            throw new \Exception("Mot de passe ou nom d'utilisateur est éronné ");
         }
     }
 
-    public function registration($login, $password){
-
-        $password_hash = sha1($password);
-        $sql = 'INSERT INTO user(login,pssword) VALUES (?,?)';
-        $this->executerRequete($sql, array($login, $password_hash));
+    public function registration($login, $password, $confirmpwd){
+        if ($confirmpwd ===  $password) {
+            $password_hash = sha1($password);
+            $sql = 'INSERT INTO user(login,pssword) VALUES (?,?)';
+            $this->executerRequete($sql, array($login, $password_hash));
+        }
+        else {
+            throw new \Exception("Les Mots de passe ne sont pas identiques.");
+        }
     }
 
     public function logOff (){
         session_destroy();
+        throw new \Exception("Vous êtes déconnecté");
+
     }
 }

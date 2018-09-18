@@ -2,13 +2,13 @@
 
 // Analyse la requète entrante pour déterminer l'action à entreprendre.
 
-namespace App\src\config;
+namespace App\src\Config;
 
 
-use App\src\model\View;
+use App\src\Model\View;
 use Exception;
-use App\src\controller\BackController;
-use App\src\controller\FrontController;
+use App\src\Controller\BackController;
+use App\src\Controller\FrontController;
 
 class Routeur {
 
@@ -123,7 +123,8 @@ class Routeur {
                 else if ($_GET['action'] == 'registration') {
                     $login = $this->getParametre($_POST, 'login');
                     $password = $this->getParametre($_POST, 'password');
-                    $this->bctrl->registration($login, $password);
+                    $confirmpwd = $this->getParametre($_POST, 'confirm_password');
+                    $this->bctrl->registration($login, $password,$confirmpwd);
                 }
 
                 else

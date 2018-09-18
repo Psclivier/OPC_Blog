@@ -1,5 +1,5 @@
 
-<?php session_start();
+<?php
 $this->titre = "Mon Blog - " . $article->getTitle(); ?>
 
 <article id="billet">
@@ -26,6 +26,7 @@ $this->titre = "Mon Blog - " . $article->getTitle(); ?>
 <?php foreach ($comments as $comment): ?>
 <div class="media thumbnail">
     <p><?= $comment->getPseudo(); ?> dit :</p>
+    <p><?= $comment->getDate(); ?></p>
     <p><?= $comment->getContent(); ?></p>
 
 <?php if (isset($_SESSION['rank']) && ($_SESSION['rank'] == "admin")) : ?>
